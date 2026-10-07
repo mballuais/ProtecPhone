@@ -1,0 +1,10 @@
+{
+  "ticketId": "SAV-9",
+  "commandeId": "CMD-42",
+  "motif": "Coque abîmée à la réception",
+  "statut": "EN_COURS",
+  "messages": [
+    { "auteur": "client", "texte": "La coque est fissurée." },
+    { "auteur": "support", "texte": "Nous vous envoyons un remplacement." }
+  ]
+}
