@@ -1,0 +1,23 @@
+Étape 4 : découpler les services
+
+Données répliquées
+
+| Service | Possède | Réplique (copie locale) |
+|---|---|---|
+| Produit | produit (nom, prix, stock) | rien |
+| Commandes | commande (lignes, statut, total) | produit : nom, prix, stock (pour le panier) |
+| Après-vente | ticket (motif, statut, messages) | commande : lignes, statut (pour savoir si une demande est possible) |
+
+Événements
+
+| Événement | Émetteur | Récepteur | Donnée de l'agrégat modifiée | Nouvelle valeur |
+|---|---|---|---|---|
+| Price Changed | Produit | Commandes | produit.prix | `{ produitId, prix }` |
+| Stock Changed | Produit | Commandes | produit.stock | `{ produitId, stock }` |
+| Order Created | Commandes | Produit | commande.lignes (quantités commandées) | `{ commandeId, lignes: [{ produitId, quantite }] }` |
+| Order Created | Commandes | Après-vente | commande (création de la copie) | `{ commandeId, clientId, lignes, statut: "CONFIRMEE" }` |
+| Order Cancelled | Commandes | Produit | commande.lignes (quantités à remettre) | `{ commandeId, lignes: [{ produitId, quantite }] }` |
+| Order Cancelled | Commandes | Après-vente | commande.statut | `{ commandeId, statut: "ANNULEE" }` |
+| Order Status Changed | Commandes | Après-vente | commande.statut | `{ commandeId, statut: "EXPEDIEE" / "LIVREE" / "RETOURNEE" }` |
+| Product Returned | Commandes | Produit | commande.lignes (quantités retournées) | `{ commandeId, lignes: [{ produitId, quantite }] }` |
+| After-Sales Status Changed | Après-vente | Commandes | ticket.statut | `{ ticketId, commandeId, statut: "OUVERT" / "EN_COURS" / "RESOLU" }` |
