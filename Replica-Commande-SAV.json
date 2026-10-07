@@ -1,0 +1,12 @@
+{
+  "commandeId": "CMD-42",
+  "clientId": "CLI-7",
+  "statut": "CONFIRMEE",
+  "lignes": [
+    {
+      "produitId": "coque-001",
+      "couleur": "noir",
+      "quantite": 2
+    }
+  ]
+}

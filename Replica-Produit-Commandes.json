@@ -1,0 +1,16 @@
+{
+  "produitId": "coque-001",
+  "nom": "Coque transparente renforcée",
+  "variantes": [
+    {
+      "couleur": "noir",
+      "prix": 14.99,
+      "stock": 80
+    },
+    {
+      "couleur": "transparent",
+      "prix": 14.99,
+      "stock": 120
+    }
+  ]
+}
