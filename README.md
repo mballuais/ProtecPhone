@@ -11,11 +11,12 @@ Le système permet aux clients de :
 * Suivre la livraison de leurs colis en temps réel.
 * Interagir avec le service après-vente (SAV) pour créer des réclamations ou effectuer des retours.
 * Recevoir des recommandations de coques personnalisées adaptées à leur modèle de téléphone.
- Architecture des microservices
+  
+ ## Architecture des microservices
 
 L'application est découpée en plusieurs microservices indépendants. Chaque service possède ses propres données et assure une responsabilité métier spécifique.
 
-1. Service Produit
+## 1. Service Produit
 
 Responsabilité : gérer le catalogue des produits disponibles sur la plateforme.
 
@@ -31,7 +32,7 @@ Ce service permet de :
 
 * Données possédées : produits (nom, prix, stock).
 
-2. Service Commandes
+## 2. Service Commandes
 
 Responsabilité : gérer le processus de commande, depuis la création jusqu'au suivi de son statut.
 
@@ -51,7 +52,7 @@ Données possédées : commandes (lignes, statut, total).
 
 Données répliquées : informations utiles sur les produits (nom, prix, stock).
 
-3. Service Après-vente (SAV)
+## 3. Service Après-vente (SAV)
 
 Responsabilité : gérer les demandes d'assistance des clients après une commande.
 
