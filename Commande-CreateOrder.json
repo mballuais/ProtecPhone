@@ -1,0 +1,24 @@
+{
+  "type": "CreateOrder",
+  "payload": {
+    "commandeId": "CMD-42",
+    "dateCommande": "2026-10-07T14:00:00Z",
+    "client": {
+      "clientId": "CLI-7",
+      "nom": "Marie Dupont"
+    },
+    "lignes": [
+      {
+        "produitId": "coque-001",
+        "nom": "Coque transparente renforcée",
+        "couleur": "noir",
+        "modele": "iPhone 15",
+        "quantite": 2,
+        "prixUnitaire": 14.99
+      }
+    ],
+    "adresseLivraison": "12 rue des Lilas, 75000 Paris, France",
+    "statut": "CONFIRMEE",
+    "total": 29.98
+  }
+}

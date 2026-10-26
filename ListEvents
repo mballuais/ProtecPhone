@@ -12,12 +12,16 @@ Données répliquées
 
 | Événement | Émetteur | Récepteur | Donnée de l'agrégat modifiée | Nouvelle valeur |
 |---|---|---|---|---|
+| ProductCreated | Produit | Commandes | produit (création de la copie) | `{ produitId, nom, compatibilite, variantes: [{ couleur, prix, stock }] }` |
+| ProductUpdated | Produit | Commandes | produit (remplacement de la copie par son état complet actualisé) | `{ produitId, nom, compatibilite, variantes: [{ couleur, prix, stock }] }` |
 | Price Changed | Produit | Commandes | produit.prix | `{ produitId, prix }` |
 | Stock Changed | Produit | Commandes | produit.stock | `{ produitId, stock }` |
 | Order Created | Commandes | Produit | commande.lignes (quantités commandées) | `{ commandeId, lignes: [{ produitId, quantite }] }` |
-| Order Created | Commandes | Après-vente | commande (création de la copie) | `{ commandeId, clientId, lignes, statut: "CONFIRMEE" }` |
+| Order Created | Commandes | Après-vente | commande (création de la copie) | `{ commandeId, dateCommande, client: { clientId, nom }, lignes: [{ produitId, nom, couleur, modele, quantite, prixUnitaire }], statut: "CONFIRMEE", total }` |
 | Order Cancelled | Commandes | Produit | commande.lignes (quantités à remettre) | `{ commandeId, lignes: [{ produitId, quantite }] }` |
 | Order Cancelled | Commandes | Après-vente | commande.statut | `{ commandeId, statut: "ANNULEE" }` |
 | Order Status Changed | Commandes | Après-vente | commande.statut | `{ commandeId, statut: "EXPEDIEE" / "LIVREE" / "RETOURNEE" }` |
 | Product Returned | Commandes | Produit | commande.lignes (quantités retournées) | `{ commandeId, lignes: [{ produitId, quantite }] }` |
 | After-Sales Status Changed | Après-vente | Commandes | ticket.statut | `{ ticketId, commandeId, statut: "OUVERT" / "EN_COURS" / "RESOLU" }` |
+
+Les libellés existants « Order Created » et « Order Status Changed » correspondent respectivement à `OrderCreated` et `OrderStatusChanged`, sans doublon. Les événements Produit transmettent l’état complet de `Replica-Produit-Commandes.json`, identifié par `produitId`. `OrderCreated` transmet tous les champs de `Replica-Commande-SAV.json` ; `OrderStatusChanged` met à jour le statut de la copie identifiée par `commandeId`.

@@ -1,0 +1,23 @@
+{
+  "type": "CreateProduct",
+  "payload": {
+    "produitId": "coque-001",
+    "nom": "Coque transparente renforcée",
+    "compatibilite": [
+      "iPhone 15",
+      "iPhone 15 Pro"
+    ],
+    "variantes": [
+      {
+        "couleur": "noir",
+        "prix": 14.99,
+        "stock": 80
+      },
+      {
+        "couleur": "transparent",
+        "prix": 14.99,
+        "stock": 120
+      }
+    ]
+  }
+}

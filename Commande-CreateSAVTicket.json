@@ -1,0 +1,17 @@
+{
+  "type": "CreateSAVTicket",
+  "payload": {
+    "ticketId": "SAV-9",
+    "commandeId": "CMD-42",
+    "dateCreation": "2026-10-07T15:30:00Z",
+    "motif": "Coque abîmée à la réception",
+    "statut": "EN_COURS",
+    "messages": [
+      {
+        "auteur": "client",
+        "texte": "La coque est fissurée.",
+        "date": "2026-10-07T15:30:00Z"
+      }
+    ]
+  }
+}
