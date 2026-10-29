@@ -17,7 +17,7 @@ BALLUAIS Matteo
 
 DAOUD Sheyma
 
-Application Java 21 / Spring Boot • Redis • MongoDB
+Programation • Redis • MongoDB
 
 Ce rapport présente l'implémentation vérifiée du dépôt ProtecPhone : trois services,
 des agrégats métier imbriqués et deux répliques mises à jour par événements.

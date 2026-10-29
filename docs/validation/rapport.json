@@ -1,7 +1,7 @@
 {
   "pages": 7,
   "text_characters_per_page": [
-    826,
+    805,
     1774,
     1872,
     1895,
@@ -9,7 +9,7 @@
     2411,
     2449
   ],
-  "sha256": "0194da86ff7eebffffa4e40792deef3472fab751db4725742ad3e70a38c364a5",
+  "sha256": "32787dfef0d5c58bb03495ea5a256da1c6f09cc51352d2d87dc007d65e2873ff",
   "visual_review": "Seven pages rendered and inspected; no clipped text or blank pages observed",
   "group_members": [
     "Ilyesse El Adaoui",
