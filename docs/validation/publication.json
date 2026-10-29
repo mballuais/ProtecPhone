@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/mballuais/ProtecPhone",
+  "branch": "main",
+  "verified_date_europe_paris": "2026-10-29",
+  "technical_commit": "e799e86",
+  "delivery_commit": "31b008012c0afebeeb7942c23ca8aae1c261b4d8",
+  "verification_command": "git ls-remote origin refs/heads/main",
+  "observed_remote_head": "31b008012c0afebeeb7942c23ca8aae1c261b4d8",
+  "readme_diff_from_initial_main": false,
+  "moodle_submitted": false,
+  "note": "La verification porte sur la publication technique et documentaire. Un commit ulterieur ajoute cette preuve et actualise la checklist et l'archive."
+}

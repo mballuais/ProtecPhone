@@ -8,7 +8,7 @@
 | Un service conserve une réplique d'un autre | Validé : deux répliques | Produit dans Commandes, Commande dans SAV | Replica-*.json, test_15 |
 | Mise à jour des répliques par événements | Validé | Création, prix, stock, annulation et statut | Business.receive, RedisStore, scripts/checks.py |
 | Mini-rapport PDF | Généré et contrôlé, 7 pages | PDF et source éditable | rapport/ProtecPhone-Rapport-NoSQL.pdf et .md |
-| Dépôt Git contenant l'application | Préparé pour publication | Code, Compose, scripts, preuves | https://github.com/mballuais/ProtecPhone |
+| Dépôt Git contenant l'application | Publié sur main et vérifié à distance | Commits e799e86 et 31b0080 ; preuve Git | https://github.com/mballuais/ProtecPhone ; docs/validation/publication.json |
 | Dépôt sur Moodle avant le 15/11/2026 | Intervention étudiante requise | Archive et procédure prêtes ; aucune remise annoncée | livrables/REMISE-MOODLE.md |
 
 | Finalisation complémentaire | Statut / preuve |
@@ -26,5 +26,5 @@
 | Noms des membres | Champ à compléter par le groupe dans la source du rapport |
 
 Ne pas confondre la validation technique et la remise administrative. Le statut
-de publication effectif est à vérifier sur GitHub ; Moodle exige un téléversement
+de publication a été vérifié sur GitHub ; Moodle exige un téléversement
 et une confirmation par l'étudiant.
