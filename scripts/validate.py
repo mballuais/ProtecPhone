@@ -1,4 +1,3 @@
-"""Run the complete real suite and retain its unmodified output and exit status."""
 import datetime
 import json
 from pathlib import Path

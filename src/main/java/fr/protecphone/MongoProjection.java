@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
 
-/** Durable FIFO outbox: acknowledge only after all Mongo replacements succeed. */
+
 @Component
 public class MongoProjection {
     private static final Logger LOG = LoggerFactory.getLogger(MongoProjection.class);

@@ -1,4 +1,3 @@
-"""Render the editable seven-page French report; requires ReportLab only."""
 import html
 import json
 from pathlib import Path
@@ -35,7 +34,7 @@ def architecture():
     arrow(237, 45, 237, 16)
     drawing.add(String(250, 29, "Projecteurs Java FIFO / replaceOne", fontSize=8, fillColor=BLUE))
     box(77, -28, 320, "MongoDB : documents et repliques", "products / orders / sav_tickets / copies locales", BLUE)
-    # Translate the drawing so the bottom box lies inside its bounds.
+
     drawing.translate(0, 28)
     drawing.height = 208
     return drawing
@@ -51,7 +50,7 @@ def main():
         raise RuntimeError("Preuves de validation completes absentes")
     base = "Helvetica"
     bold = "Helvetica-Bold"
-    # Embed a Unicode font when available; otherwise standard PDF fonts support French.
+
     candidates = [(Path("C:/Windows/Fonts/segoeui.ttf"), Path("C:/Windows/Fonts/segoeuib.ttf")),
                   (Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"), Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"))]
     for regular, heavy in candidates:

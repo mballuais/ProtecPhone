@@ -1,4 +1,3 @@
-"""Real HTTP/Redis checks. Standard library only; no mocked Redis."""
 import copy
 import json
 import os
@@ -17,7 +16,7 @@ URLS = {role: os.getenv(role.upper() + "_URL", "http://localhost:" + port)
 
 
 def redis(*args):
-    """Small RESP2 client so the demonstration needs no Python packages."""
+
     with socket.create_connection((os.getenv("REDIS_HOST", "localhost"), int(os.getenv("REDIS_PORT", "6379"))), timeout=5) as connection, connection.makefile("rb") as stream:
         encoded = [str(arg).encode("utf-8") for arg in args]
         connection.sendall(b"*%d\r\n" % len(encoded) + b"".join(
@@ -112,7 +111,7 @@ def mongo_verify():
     ]:
         for identifier in ids:
             expected = api(role, path + identifier)
-            # Mongo's healthcheck may pass before an existing Java connection recovers.
+
             wait(f"lecture MongoDB {collection}/{identifier}",
                  lambda r=role, c=collection, i=identifier, e=expected: api(r, f"/documents/{c}/{i}") == e)
     print("OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis", flush=True)
@@ -197,7 +196,7 @@ def demo():
 class IntegrationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        # The orchestrator already seeded and validated both databases.
+
         idle()
 
     def test_01_hash_creation_and_read(self):
@@ -296,7 +295,7 @@ class IntegrationTests(unittest.TestCase):
         mongo_verify()
 
     def test_16_duplicate_replica_events_preserve_latest_state(self):
-        # Replay the most recent snapshots, never a historical event with a new id.
+
         for role, event_type in [("orders", "StockChanged"), ("sav", "OrderStatusChanged")]:
             raw = next(r for r in reversed(redis("LRANGE", key("events"), 0, -1)) if json.loads(r)["type"] == event_type)
             before = len(events())
@@ -308,7 +307,7 @@ class IntegrationTests(unittest.TestCase):
         mongo_verify()
 
     def test_17_mongo_outbox_replay(self):
-        # A crash after Mongo commit but before Redis ack repeats this replacement.
+
         document = api("product", "/products/coque-001")
         batch = json.dumps([{"suffix": "product:coque-001", "document": document}])
         redis("RPUSH", key("mongo:queue:product"), batch, batch)
@@ -323,7 +322,7 @@ class IntegrationTests(unittest.TestCase):
 
 
 def reset():
-    # The runner stops all three writers before reset; never FLUSHDB/FLUSHALL.
+
     if PREFIX != "protecphone:demo":
         raise RuntimeError("Reset autorise uniquement pour protecphone:demo")
     marker = "protecphone:validation:" + str(uuid.uuid4())

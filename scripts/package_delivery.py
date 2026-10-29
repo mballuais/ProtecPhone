@@ -1,4 +1,3 @@
-"""Build the Moodle ZIP with an explicit allowlist and SHA-256 manifest."""
 import hashlib
 import json
 from pathlib import Path

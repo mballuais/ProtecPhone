@@ -1,4 +1,3 @@
-"""Start Docker, seed via business APIs, verify flows and exercise real restarts."""
 import argparse
 from pathlib import Path
 import subprocess
@@ -21,7 +20,7 @@ def mongo_query(expression):
 
 
 def mongo_reset():
-    # Never drop a database: only documents in the reserved demo namespace.
+
     marker = "protecphone:validation:" + str(uuid.uuid4())
     mongo_query("const marker='" + marker + "'; "
                 "db.products.insertOne({_id:marker,_namespace:marker,preuve:'a conserver'}); try { "
@@ -44,11 +43,11 @@ def mongo_reads():
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description='Start Docker, seed via business APIs, verify flows and exercise real restarts.')
     parser.add_argument("action", choices=["demo", "test"], nargs="?", default="demo")
     parser.add_argument("--no-build", action="store_true")
     args = parser.parse_args()
-    # Stop writers before deleting the isolated demonstration namespace.
+
     compose("up", "-d", "--wait", "redis", "mongodb")
     compose("stop", "product", "orders", "sav")
     check("reset")
@@ -67,7 +66,7 @@ def main():
             check("offline-verify")
             compose("stop", "product")
             check("stage-inflight")
-            # Redis persistence is tested with an actual restart while the event is in flight.
+
             compose("restart", "redis")
             compose("up", "-d", "--wait", "redis", "product", "orders", "sav")
             check("recovered")
@@ -76,7 +75,7 @@ def main():
             check("mongo-verify")
             compose("stop", "mongodb")
             check("mongo-offline")
-            # Restart the owner while Mongo is down: its persistent outbox must survive.
+
             compose("restart", "product")
             compose("up", "-d", "--wait", "mongodb")
             check("mongo-recovered")

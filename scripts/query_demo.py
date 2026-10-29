@@ -1,4 +1,3 @@
-"""Execute every documented database query and save real outputs."""
 from pathlib import Path
 import shlex
 import subprocess

@@ -34,7 +34,7 @@ public class Consumer {
         String processing = store.key("processing:" + store.role);
         while (running) {
             try {
-                // Finish the oldest in-flight message before claiming another (also after restart).
+                
                 String raw = store.redis.opsForList().index(processing, 0);
                 if (raw == null) raw = store.redis.execute(CLAIM, List.of(pending, processing));
                 if (raw == null) { Thread.sleep(100); continue; }
