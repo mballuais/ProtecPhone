@@ -1,0 +1,572 @@
+ Container protecphone-redis-1 Recreate 
+ Container protecphone-mongodb-1 Recreate 
+ Container protecphone-mongodb-1 Recreated 
+ Container protecphone-redis-1 Recreated 
+ Container protecphone-redis-1 Starting 
+ Container protecphone-mongodb-1 Starting 
+ Container protecphone-redis-1 Started 
+ Container protecphone-mongodb-1 Started 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-sav-1 Stopping 
+ Container protecphone-orders-1 Stopping 
+ Container protecphone-product-1 Stopping 
+ Container protecphone-product-1 Stopped 
+ Container protecphone-sav-1 Stopped 
+ Container protecphone-orders-1 Stopped 
+ Container protecphone-checks-run-1c2803b290c7 Creating 
+ Container protecphone-checks-run-1c2803b290c7 Created 
+Reset limite a protecphone:demo:* : 30 cles
+products 0
+orders 0
+sav_tickets 0
+product_replicas 0
+order_replicas 0
+stock_allocations 0
+sav_status_replicas 0
+ Image protecphone-service:local Building 
+ Image protecphone-service:local Building 
+ Image protecphone-service:local Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.34kB 0.0s done
+#1 DONE 0.0s
+
+#2 [product internal] load build definition from Dockerfile
+#2 transferring dockerfile: 344B done
+#2 DONE 0.0s
+
+#3 [orders internal] load metadata for docker.io/library/maven:3.9.11-eclipse-temurin-21
+#3 DONE 0.4s
+
+#4 [sav internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#4 DONE 0.4s
+
+#5 [product internal] load .dockerignore
+#5 transferring context: 67B done
+#5 DONE 0.0s
+
+#6 [product build 1/6] FROM docker.io/library/maven:3.9.11-eclipse-temurin-21@sha256:6fdc855a6ed81d288ca7ca37ac6ff5e9308b612485c0801d70b25a858c83d237
+#6 resolve docker.io/library/maven:3.9.11-eclipse-temurin-21@sha256:6fdc855a6ed81d288ca7ca37ac6ff5e9308b612485c0801d70b25a858c83d237 0.0s done
+#6 DONE 0.0s
+
+#7 [product stage-1 1/3] FROM docker.io/library/eclipse-temurin:21-jre@sha256:f37956012e0cb88400e5b3689aeae2d2d735364c1922ae2225536163b5a99f56
+#7 resolve docker.io/library/eclipse-temurin:21-jre@sha256:f37956012e0cb88400e5b3689aeae2d2d735364c1922ae2225536163b5a99f56 0.0s done
+#7 DONE 0.0s
+
+#8 [product internal] load build context
+#8 transferring context: 734B done
+#8 DONE 0.0s
+
+#9 [sav build 5/6] COPY src src
+#9 CACHED
+
+#10 [sav build 6/6] RUN mvn -B verify
+#10 CACHED
+
+#11 [sav build 3/6] COPY pom.xml .
+#11 CACHED
+
+#12 [sav stage-1 2/3] WORKDIR /app
+#12 CACHED
+
+#13 [sav build 4/6] RUN mvn -B dependency:go-offline
+#13 CACHED
+
+#14 [sav build 2/6] WORKDIR /build
+#14 CACHED
+
+#15 [sav stage-1 3/3] COPY --from=build /build/target/redis-demo-1.0.0.jar app.jar
+#15 CACHED
+
+#16 [product] exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:ca7479d03cc2cf3599be4d523495c0528712589398cf250331bd711282f9633a
+#16 exporting manifest sha256:ca7479d03cc2cf3599be4d523495c0528712589398cf250331bd711282f9633a 0.0s done
+#16 exporting config sha256:fb8d7fddef4cd315088318ea8f6cc4fe4e3d366fa24cd3118d3ce221b8e7e1f3 0.0s done
+#16 exporting attestation manifest sha256:931409c1e78dba5917b22e6b810933d39f40bcdbf4a8631ab9f48ffc127019ef
+#16 ...
+
+#17 [sav] exporting to image
+#17 exporting layers done
+#17 exporting manifest sha256:9a26eaa1ce527b9da8f3cd84f32e691141bca765efed71ab938c3652c7e7f51d 0.0s done
+#17 exporting config sha256:094ce42f00f0c55e96e68e89a66887dfc93e4ebc1c0fdfec219c31a75eee4199 done
+#17 exporting attestation manifest sha256:990e24ad460690b294cc028f05c5411d8a36f6f2dec25be7e8c25b680d65b417 0.1s done
+#17 exporting manifest list sha256:2e216cee8d995bdf802cc549f12d12a205d7fab1081935300d95787c98334c21 0.0s done
+#17 naming to docker.io/library/protecphone-service:local done
+#17 unpacking to docker.io/library/protecphone-service:local 0.0s done
+#17 DONE 0.2s
+
+#16 [product] exporting to image
+#16 exporting attestation manifest sha256:931409c1e78dba5917b22e6b810933d39f40bcdbf4a8631ab9f48ffc127019ef 0.1s done
+#16 exporting manifest list sha256:a7ed87f96eb64ad0a6c7f297a536bc6b8a89bf92799737d3511d0b31ddd2cd60 0.0s done
+#16 naming to docker.io/library/protecphone-service:local 0.0s done
+#16 unpacking to docker.io/library/protecphone-service:local 0.0s done
+#16 DONE 0.2s
+
+#18 [orders] exporting to image
+#18 exporting layers done
+#18 exporting manifest sha256:c876ec9e79025d64ab5817c24fb8f2a61f1633a94bfdc1854f8a8361038c9dab 0.0s done
+#18 exporting config sha256:aebf77ab47948e3702cacd4fc7ce0327db40b912478a095a4d576c73b62929f0 0.0s done
+#18 exporting attestation manifest sha256:d147d7b6da949f62aca112316f413b12e57a823f9409a207305e91a06e535e86 0.1s done
+#18 exporting manifest list sha256:f362e0883c8ba6ee9678f5db10b0ba32fa4709e08a91c9877765392b2c9c9990 0.0s done
+#18 naming to docker.io/library/protecphone-service:local done
+#18 unpacking to docker.io/library/protecphone-service:local 0.0s done
+#18 DONE 0.3s
+
+#19 [sav] resolving provenance for metadata file
+#19 DONE 0.1s
+
+#20 [product] resolving provenance for metadata file
+#20 DONE 0.1s
+
+#21 [orders] resolving provenance for metadata file
+#21 DONE 0.0s
+ Image protecphone-service:local Built 
+ Image protecphone-service:local Built 
+ Image protecphone-service:local Built 
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Running 
+ Container protecphone-sav-1 Recreate 
+ Container protecphone-orders-1 Recreate 
+ Container protecphone-product-1 Recreate 
+ Container protecphone-product-1 Recreated 
+ Container protecphone-orders-1 Recreated 
+ Container protecphone-sav-1 Recreated 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-product-1 Starting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-orders-1 Starting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-sav-1 Starting 
+ Container protecphone-product-1 Started 
+ Container protecphone-orders-1 Started 
+ Container protecphone-sav-1 Started 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-product-1 Waiting 
+ Container protecphone-orders-1 Waiting 
+ Container protecphone-sav-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-product-1 Healthy 
+ Container protecphone-orders-1 Healthy 
+ Container protecphone-sav-1 Healthy 
+ Container protecphone-checks-run-de46485cdff3 Creating 
+ Container protecphone-checks-run-de46485cdff3 Created 
+OK : cinq Hashes Produit et leurs repliques automatiques
+OK : trois commandes, fan-out Produit/SAV, stocks 78 / 49 / 27
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+OK : deux tickets SAV, retour SAV vers Commandes, CMD-42 EXPEDIEE dans SAV
+{
+  "stocks": {
+    "coque-001": 78,
+    "coque-002": 49,
+    "coque-003": 27,
+    "coque-004": 40,
+    "coque-005": 100
+  },
+  "commande": {
+    "total": 29.98,
+    "lignes": [
+      {
+        "produitId": "coque-001",
+        "nom": "Coque transparente renforcée",
+        "couleur": "noir",
+        "modele": "iPhone 15",
+        "quantite": 2,
+        "prixUnitaire": 14.99
+      }
+    ],
+    "dateCommande": "2026-10-07T14:00:00Z",
+    "statut": "EXPEDIEE",
+    "commandeId": "CMD-42",
+    "client": {
+      "clientId": "CLI-7",
+      "nom": "Marie Dupont"
+    }
+  },
+  "evenements": {
+    "AfterSalesStatusChanged": 2,
+    "OrderCreated": 3,
+    "OrderStatusChanged": 1,
+    "ProductCreated": 5,
+    "StockChanged": 3
+  }
+}
+products: 5 OK
+orders: 3 OK
+sav_tickets: 2 OK
+product_replicas: 5 OK
+order_replicas: 3 OK
+{
+  _id: 'protecphone:demo:product:coque-001',
+  compatibilite: [
+    'iPhone 15'
+  ],
+  nom: 'Coque transparente renforcée',
+  variantes: [
+    {
+      prix: 14.99,
+      stock: 78,
+      couleur: 'noir'
+    }
+  ],
+  produitId: 'coque-001',
+  _namespace: 'protecphone:demo'
+}
+[
+  {
+    _id: 'protecphone:demo:order:CMD-42',
+    adresseLivraison: '12 rue des Lilas, 75000 Paris, France',
+    total: 29.98,
+    dateCommande: '2026-10-07T14:00:00Z',
+    client: {
+      nom: 'Marie Dupont',
+      clientId: 'CLI-7'
+    },
+    lignes: [
+      {
+        modele: 'iPhone 15',
+        produitId: 'coque-001',
+        quantite: 2,
+        nom: 'Coque transparente renforcée',
+        prixUnitaire: 14.99,
+        couleur: 'noir'
+      }
+    ],
+    commandeId: 'CMD-42',
+    statut: 'EXPEDIEE',
+    _namespace: 'protecphone:demo'
+  }
+]
+{
+  _id: 'protecphone:demo:replica:order:CMD-42',
+  total: 29.98,
+  dateCommande: '2026-10-07T14:00:00Z',
+  commandeId: 'CMD-42',
+  statut: 'EXPEDIEE',
+  lignes: [
+    {
+      modele: 'iPhone 15',
+      produitId: 'coque-001',
+      quantite: 2,
+      nom: 'Coque transparente renforcée',
+      prixUnitaire: 14.99,
+      couleur: 'noir'
+    }
+  ],
+  client: {
+    nom: 'Marie Dupont',
+    clientId: 'CLI-7'
+  },
+  _namespace: 'protecphone:demo'
+}
+ Container protecphone-checks-run-d8e8a71fc789 Creating 
+ Container protecphone-checks-run-d8e8a71fc789 Created 
+test_01_hash_creation_and_read (__main__.IntegrationTests.test_01_hash_creation_and_read) ... ok
+test_02_publication_and_consumption (__main__.IntegrationTests.test_02_publication_and_consumption) ... ok
+test_03_product_to_orders (__main__.IntegrationTests.test_03_product_to_orders) ... ok
+test_04_orders_to_product (__main__.IntegrationTests.test_04_orders_to_product) ... ok
+test_05_orders_to_sav (__main__.IntegrationTests.test_05_orders_to_sav) ... ok
+test_06_sav_to_orders (__main__.IntegrationTests.test_06_sav_to_orders) ... ok
+test_07_price_and_stock_replication (__main__.IntegrationTests.test_07_price_and_stock_replication) ... ok
+test_08_full_product_update (__main__.IntegrationTests.test_08_full_product_update) ... ok
+test_09_duplicate_event_does_not_reduce_stock (__main__.IntegrationTests.test_09_duplicate_event_does_not_reduce_stock) ... ok
+test_10_cancel_once_and_replicate (__main__.IntegrationTests.test_10_cancel_once_and_replicate) ... ok
+test_11_return_restock (__main__.IntegrationTests.test_11_return_restock) ... ok
+test_12_invalid_order_does_not_publish (__main__.IntegrationTests.test_12_invalid_order_does_not_publish) ... ok
+test_13_duplicate_command (__main__.IntegrationTests.test_13_duplicate_command) ... ok
+test_14_multi_line_and_variant_stock (__main__.IntegrationTests.test_14_multi_line_and_variant_stock) ... ok
+test_15_mongo_aggregates_and_replicas (__main__.IntegrationTests.test_15_mongo_aggregates_and_replicas) ... ok
+test_16_duplicate_replica_events_preserve_latest_state (__main__.IntegrationTests.test_16_duplicate_replica_events_preserve_latest_state) ... OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+ok
+test_17_mongo_outbox_replay (__main__.IntegrationTests.test_17_mongo_outbox_replay) ... ok
+test_18_mongo_collection_ownership (__main__.IntegrationTests.test_18_mongo_collection_ownership) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 2.781s
+
+OK
+ Container protecphone-orders-1 Stopping 
+ Container protecphone-orders-1 Stopped 
+ Container protecphone-checks-run-bf632d46d989 Creating 
+ Container protecphone-checks-run-bf632d46d989 Created 
+OK : evenement conserve pendant l'arret de Commandes
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Running 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-orders-1 Starting 
+ Container protecphone-orders-1 Started 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-orders-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-orders-1 Healthy 
+ Container protecphone-checks-run-c782e7b2ec6c Creating 
+ Container protecphone-checks-run-c782e7b2ec6c Created 
+OK : consommateur indisponible puis reprise et synchronisation
+ Container protecphone-product-1 Stopping 
+ Container protecphone-product-1 Stopped 
+ Container protecphone-checks-run-1767a685ef73 Creating 
+ Container protecphone-checks-run-1767a685ef73 Created 
+OK : message reclame dans processing, avant son traitement
+ Container protecphone-redis-1 Restarting 
+ Container protecphone-redis-1 Started 
+ Container protecphone-redis-1 Running 
+ Container protecphone-orders-1 Running 
+ Container protecphone-sav-1 Running 
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-product-1 Starting 
+ Container protecphone-product-1 Started 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-product-1 Waiting 
+ Container protecphone-orders-1 Waiting 
+ Container protecphone-sav-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-sav-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-orders-1 Healthy 
+ Container protecphone-product-1 Healthy 
+ Container protecphone-checks-run-2dd7fdd0d126 Creating 
+ Container protecphone-checks-run-2dd7fdd0d126 Created 
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+OK : reprise de processing et rejeu idempotent apres redemarrage
+ Container protecphone-mongodb-1 Restarting 
+ Container protecphone-mongodb-1 Started 
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-checks-run-876ae929be93 Creating 
+ Container protecphone-checks-run-876ae929be93 Created 
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+ Container protecphone-mongodb-1 Stopping 
+ Container protecphone-mongodb-1 Stopped 
+ Container protecphone-checks-run-30a413340b70 Creating 
+ Container protecphone-checks-run-30a413340b70 Created 
+OK : ecriture Redis acceptee et projection conservee pendant la panne MongoDB
+ Container protecphone-product-1 Restarting 
+ Container protecphone-product-1 Started 
+ Container protecphone-mongodb-1 Starting 
+ Container protecphone-mongodb-1 Started 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-checks-run-ebf08b1058df Creating 
+ Container protecphone-checks-run-ebf08b1058df Created 
+Traceback (most recent call last):
+  File "/work/scripts/checks.py", line 60, in api
+    with urllib.request.urlopen(request, timeout=5) as response:
+         ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/urllib/request.py", line 189, in urlopen
+    return opener.open(url, data, timeout)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/urllib/request.py", line 495, in open
+    response = meth(req, response)
+  File "/usr/local/lib/python3.13/urllib/request.py", line 604, in http_response
+    response = self.parent.error(
+        'http', request, response, code, msg, hdrs)
+  File "/usr/local/lib/python3.13/urllib/request.py", line 533, in error
+    return self._call_chain(*args)
+           ~~~~~~~~~~~~~~~~^^^^^^^
+  File "/usr/local/lib/python3.13/urllib/request.py", line 466, in _call_chain
+    result = func(*args)
+  File "/usr/local/lib/python3.13/urllib/request.py", line 613, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 500: 
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/work/scripts/checks.py", line 397, in <module>
+    {"demo": demo, "reset": reset, "offline-publish": offline_publish,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     "offline-verify": offline_verify, "stage-inflight": stage_inflight, "recovered": recovered,
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     "mongo-verify": mongo_verify, "mongo-offline": mongo_offline, "mongo-recovered": mongo_recovered}[action]()
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/work/scripts/checks.py", line 386, in mongo_recovered
+    mongo_verify()
+    ~~~~~~~~~~~~^^
+  File "/work/scripts/checks.py", line 113, in mongo_verify
+    assert api(role, f"/documents/{collection}/{identifier}") == api(role, path + identifier), (collection, identifier)
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/work/scripts/checks.py", line 65, in api
+    raise RuntimeError(f"{role} {path}: HTTP {error.code}: {detail}") from error
+RuntimeError: sav /documents/order_replicas/CMD-42: HTTP 500: {"timestamp":"2026-10-29T08:57:44.706+00:00","status":500,"error":"Internal Server Error","path":"/documents/order_replicas/CMD-42"}
+
+ Container protecphone-redis-1 Running 
+ Container protecphone-product-1 Running 
+ Container protecphone-orders-1 Running 
+ Container protecphone-sav-1 Running 
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-product-1 Waiting 
+ Container protecphone-orders-1 Waiting 
+ Container protecphone-sav-1 Waiting 
+ Container protecphone-product-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-orders-1 Healthy 
+ Container protecphone-sav-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ECHEC : commande Docker terminee avec le code 1
+product-1  | 	at com.mongodb.internal.operation.CommandReadOperation.execute(CommandReadOperation.java:52) ~[mongodb-driver-core-5.5.2.jar!/:na]
+product-1  | 	at com.mongodb.client.internal.MongoClusterImpl$OperationExecutorImpl.execute(MongoClusterImpl.java:424) ~[mongodb-driver-sync-5.5.2.jar!/:na]
+product-1  | 	at com.mongodb.client.internal.MongoDatabaseImpl.executeCommand(MongoDatabaseImpl.java:215) ~[mongodb-driver-sync-5.5.2.jar!/:na]
+orders-1   | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.12.jar!/:6.2.12]
+orders-1   | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973) ~[tomcat-embed-core-10.1.48.jar!/:na]
+orders-1   | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.48.jar!/:na]
+orders-1   | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.48.jar!/:na]
+orders-1   | 	at java.base/java.lang.Thread.run(Unknown Source) ~[na:na]
+orders-1   | Caused by: com.mongodb.MongoTimeoutException: Timed out while waiting for a server that matches ReadPreferenceServerSelector{readPreference=primary}. Client view of cluster state is {type=UNKNOWN, servers=[{address=mongodb:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketException: mongodb}, caused by {java.net.UnknownHostException: mongodb}}]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.12.jar!/:6.2.12]
+sav-1      | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.12.jar!/:6.2.12]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.48.jar!/:na]
+orders-1   | 	at com.mongodb.internal.connection.BaseCluster.logAndThrowTimeoutException(BaseCluster.java:427) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.connection.BaseCluster.lambda$selectServer$0(BaseCluster.java:154) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.time.Timeout.lambda$onExistsAndExpired$16(Timeout.java:236) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.time.Timeout.lambda$run$10(Timeout.java:201) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.time.TimePoint.checkedCall(TimePoint.java:99) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.time.Timeout.call(Timeout.java:174) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.time.Timeout.run(Timeout.java:194) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.time.Timeout.onExistsAndExpired(Timeout.java:233) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.time.Timeout.onExpired(Timeout.java:226) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.connection.BaseCluster.selectServer(BaseCluster.java:153) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.connection.SingleServerCluster.selectServer(SingleServerCluster.java:47) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.binding.ClusterBinding.getReadConnectionSource(ClusterBinding.java:82) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.client.internal.ClientSessionBinding.getConnectionSource(ClientSessionBinding.java:108) ~[mongodb-driver-sync-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.client.internal.ClientSessionBinding.getReadConnectionSource(ClientSessionBinding.java:88) ~[mongodb-driver-sync-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.operation.SyncOperationHelper.withSuppliedResource(SyncOperationHelper.java:148) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.operation.SyncOperationHelper.withSourceAndConnection(SyncOperationHelper.java:129) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.operation.SyncOperationHelper.lambda$executeRetryableRead$4(SyncOperationHelper.java:195) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.operation.SyncOperationHelper.lambda$decorateReadWithRetries$13(SyncOperationHelper.java:317) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.async.function.RetryingSyncSupplier.get(RetryingSyncSupplier.java:67) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.operation.SyncOperationHelper.executeRetryableRead(SyncOperationHelper.java:201) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.operation.SyncOperationHelper.executeRetryableRead(SyncOperationHelper.java:180) ~[mongodb-driver-core-5.5.2.jar!/:na]
+sav-1      | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.12.jar!/:6.2.12]
+sav-1      | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.12.jar!/:6.2.12]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110) ~[spring-web-6.2.12.jar!/:6.2.12]
+sav-1      | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.12.jar!/:6.2.12]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.12.jar!/:6.2.12]
+sav-1      | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.12.jar!/:6.2.12]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-10.1.48.jar!/:na]
+product-1  | 	at com.mongodb.client.internal.MongoDatabaseImpl.runCommand(MongoDatabaseImpl.java:184) ~[mongodb-driver-sync-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.internal.operation.CommandReadOperation.execute(CommandReadOperation.java:52) ~[mongodb-driver-core-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.client.internal.MongoClusterImpl$OperationExecutorImpl.execute(MongoClusterImpl.java:424) ~[mongodb-driver-sync-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.client.internal.MongoDatabaseImpl.executeCommand(MongoDatabaseImpl.java:215) ~[mongodb-driver-sync-5.5.2.jar!/:na]
+sav-1      | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-10.1.48.jar!/:na]
+orders-1   | 	at com.mongodb.client.internal.MongoDatabaseImpl.runCommand(MongoDatabaseImpl.java:184) ~[mongodb-driver-sync-5.5.2.jar!/:na]
+sav-1      | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.48.jar!/:na]
+sav-1      | 	at java.base/java.lang.Thread.run(Unknown Source) ~[na:na]
+sav-1      | 
+product-1  | 	at com.mongodb.client.internal.MongoDatabaseImpl.runCommand(MongoDatabaseImpl.java:179) ~[mongodb-driver-sync-5.5.2.jar!/:na]
+orders-1   | 	at com.mongodb.client.internal.MongoDatabaseImpl.runCommand(MongoDatabaseImpl.java:179) ~[mongodb-driver-sync-5.5.2.jar!/:na]
+product-1  | 	at org.springframework.data.mongodb.core.MongoTemplate.lambda$executeCommand$3(MongoTemplate.java:529) ~[spring-data-mongodb-4.5.5.jar!/:4.5.5]
+orders-1   | 	at org.springframework.data.mongodb.core.MongoTemplate.lambda$executeCommand$3(MongoTemplate.java:529) ~[spring-data-mongodb-4.5.5.jar!/:4.5.5]
+product-1  | 	at org.springframework.data.mongodb.core.MongoTemplate.execute(MongoTemplate.java:595) ~[spring-data-mongodb-4.5.5.jar!/:4.5.5]
+orders-1   | 	at org.springframework.data.mongodb.core.MongoTemplate.execute(MongoTemplate.java:595) ~[spring-data-mongodb-4.5.5.jar!/:4.5.5]
+product-1  | 	... 73 common frames omitted
+orders-1   | 	... 73 common frames omitted
+product-1  | 
+orders-1   | 
+orders-1   | 2026-10-29T08:57:39.325Z  WARN 1 --- [protecphone-orders] [ojection-orders] fr.protecphone.MongoProjection           : Projection MongoDB en attente, reprise sans acquittement : Timed out while waiting for a server that matches WritableServerSelector. Client view of cluster state is {type=UNKNOWN, servers=[{address=mongodb:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketException: mongodb}, caused by {java.net.UnknownHostException: mongodb}}]
+orders-1   | 2026-10-29T08:57:40.327Z  INFO 1 --- [protecphone-orders] [ojection-orders] org.mongodb.driver.cluster               : Waiting for server to become available for operation with ID 65. Remaining time: 2999 ms. Selector: WritableServerSelector, topology description: {type=UNKNOWN, servers=[{address=mongodb:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketException: mongodb}, caused by {java.net.UnknownHostException: mongodb}}].
+orders-1   | 2026-10-29T08:57:40.912Z  INFO 1 --- [protecphone-orders] [nio-8080-exec-9] org.mongodb.driver.cluster               : Waiting for server to become available for operation with ID 68. Remaining time: 2999 ms. Selector: ReadPreferenceServerSelector{readPreference=primary}, topology description: {type=UNKNOWN, servers=[{address=mongodb:27017, type=UNKNOWN, state=CONNECTING, exception={com.mongodb.MongoSocketException: mongodb}, caused by {java.net.UnknownHostException: mongodb}}].
+orders-1   | 2026-10-29T08:57:41.329Z  INFO 1 --- [protecphone-orders] [}-mongodb:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=mongodb:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=889005, minRoundTripTimeNanos=0}
+product-1  | 
+product-1  |   .   ____          _            __ _ _
+product-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+product-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+product-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+product-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+product-1  |  =========|_|==============|___/=/_/_/_/
+product-1  | 
+product-1  |  :: Spring Boot ::                (v3.5.7)
+product-1  | 
+product-1  | 2026-10-29T08:57:29.900Z  INFO 1 --- [protecphone-product] [           main] fr.protecphone.Application               : Starting Application v1.0.0 using Java 21.0.12.1 with PID 1 (/app/app.jar started by ? in /app)
+product-1  | 2026-10-29T08:57:29.903Z  INFO 1 --- [protecphone-product] [           main] fr.protecphone.Application               : No active profile set, falling back to 1 default profile: "default"
+product-1  | 2026-10-29T08:57:30.963Z  INFO 1 --- [protecphone-product] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+product-1  | 2026-10-29T08:57:30.964Z  INFO 1 --- [protecphone-product] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+product-1  | 2026-10-29T08:57:30.983Z  INFO 1 --- [protecphone-product] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 MongoDB repository interfaces.
+product-1  | 2026-10-29T08:57:30.997Z  INFO 1 --- [protecphone-product] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+product-1  | 2026-10-29T08:57:30.999Z  INFO 1 --- [protecphone-product] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+product-1  | 2026-10-29T08:57:31.008Z  INFO 1 --- [protecphone-product] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 0 ms. Found 0 Redis repository interfaces.
+product-1  | 2026-10-29T08:57:31.355Z  INFO 1 --- [protecphone-product] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+product-1  | 2026-10-29T08:57:31.367Z  INFO 1 --- [protecphone-product] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+product-1  | 2026-10-29T08:57:31.367Z  INFO 1 --- [protecphone-product] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.48]
+product-1  | 2026-10-29T08:57:31.389Z  INFO 1 --- [protecphone-product] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+product-1  | 2026-10-29T08:57:31.390Z  INFO 1 --- [protecphone-product] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1432 ms
+product-1  | 2026-10-29T08:57:32.166Z  INFO 1 --- [protecphone-product] [           main] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "5.5.2"}, "os": {"type": "Linux", "name": "Linux", "architecture": "amd64", "version": "6.6.87.2-microsoft-standard-WSL2"}, "platform": "Java/Eclipse Adoptium/21.0.12.1+1-LTS", "env": {"container": {"runtime": "docker"}}} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=majority, wTimeout=null ms, journal=true}, retryWrites=false, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, commandListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener@42cc5460], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@5486ee92, com.mongodb.Jep395RecordCodecProvider@20820df0, com.mongodb.KotlinCodecProvider@9e62fb]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[mongodb:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='3000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsConnectionPoolListener@205159dc], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverMonitoringMode=AUTO, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null, timeoutMS=null}
+product-1  | 2026-10-29T08:57:32.193Z  INFO 1 --- [protecphone-product] [}-mongodb:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=mongodb:27017, type=STANDALONE, cryptd=false, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=22498863, minRoundTripTimeNanos=0}
+product-1  | 2026-10-29T08:57:33.066Z  INFO 1 --- [protecphone-product] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+product-1  | 2026-10-29T08:57:33.122Z  INFO 1 --- [protecphone-product] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+product-1  | 2026-10-29T08:57:33.137Z  INFO 1 --- [protecphone-product] [           main] fr.protecphone.Application               : Started Application in 3.833 seconds (process running for 4.659)
+product-1  | 2026-10-29T08:57:33.566Z  INFO 1 --- [protecphone-product] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+product-1  | 2026-10-29T08:57:33.566Z  INFO 1 --- [protecphone-product] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+product-1  | 2026-10-29T08:57:33.567Z  INFO 1 --- [protecphone-product] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms

@@ -1,5 +1,10 @@
 # Démonstration Redis ProtecPhone
 
+> Mise à jour du 29 octobre 2026 : MongoDB complète maintenant cette démonstration.
+> Les commandes ci-dessous restent utilisables. Voir [DEMARRAGE.md](DEMARRAGE.md),
+> [ARCHITECTURE.md](ARCHITECTURE.md), [REQUETES-NOSQL.md](REQUETES-NOSQL.md)
+> et [TESTS.md](TESTS.md) pour la version finale et ses résultats actuels.
+
 Java 21, Spring Boot, Redis Hashes et Redis Lists. Les trois services sont des
 processus et conteneurs indépendants, construits à partir du même projet Maven.
 `SERVICE_ROLE` sélectionne les routes métier et le consommateur du processus.
@@ -17,10 +22,10 @@ docker compose ps
 
 | Composant | Adresse locale |
 |---|---|
-| Produit | http://localhost:28081 |
-| Commandes | http://localhost:28082 |
-| SAV | http://localhost:28083 |
-| Redis | localhost:6380 |
+| Produit | http://localhost:8081 |
+| Commandes | http://localhost:8082 |
+| SAV | http://localhost:8083 |
+| Redis | localhost:6379 |
 
 La santé de chaque API est accessible sur `/actuator/health`. Les ports sont
 personnalisables via `PRODUCT_PORT`, `ORDERS_PORT`, `SAV_PORT`, `REDIS_BIND_PORT`.
@@ -34,8 +39,8 @@ Depuis la racine du dépôt :
 python scripts/run.py demo
 ```
 
-Le script démarre Redis, arrête les trois services avant la remise à zéro,
-supprime uniquement les clés `protecphone:demo:*`, reconstruit et démarre les
+Le script démarre Redis et MongoDB, arrête les trois services avant la remise à zéro,
+supprime uniquement les clés `protecphone:demo:*` et les documents de ce namespace, reconstruit et démarre les
 services, puis crée les données via les API métier. Il attend chaque projection
 avec un délai maximal et échoue avec un code non nul et un diagnostic si une
 vérification échoue. Il ne crée jamais directement les répliques.
@@ -64,11 +69,11 @@ autre préfixe et n'utilise ni `FLUSHDB` ni `FLUSHALL`. Ne pas stocker de donné
 Sur une instance vide, dans l'ordre (attendre la réplique avant l'étape suivante) :
 
 ```sh
-curl -X POST http://localhost:28081/commands -H "Content-Type: application/json" --data-binary @Commande-CreateProduct.json
-curl http://localhost:28082/replicas/products/coque-001
-curl -X POST http://localhost:28082/commands -H "Content-Type: application/json" --data-binary @Commande-CreateOrder.json
-curl http://localhost:28083/replicas/orders/CMD-42
-curl -X POST http://localhost:28083/commands -H "Content-Type: application/json" --data-binary @Commande-CreateSAVTicket.json
+curl -X POST http://localhost:8081/commands -H "Content-Type: application/json" --data-binary @Commande-CreateProduct.json
+curl http://localhost:8082/replicas/products/coque-001
+curl -X POST http://localhost:8082/commands -H "Content-Type: application/json" --data-binary @Commande-CreateOrder.json
+curl http://localhost:8083/replicas/orders/CMD-42
+curl -X POST http://localhost:8083/commands -H "Content-Type: application/json" --data-binary @Commande-CreateSAVTicket.json
 ```
 
 Sous PowerShell, utiliser `curl.exe` pour ces exemples. Après le script de
@@ -167,7 +172,7 @@ Références : [file fiable LMOVE](https://redis.io/docs/latest/commands/lmove/)
 python scripts/run.py test
 ```
 
-Les tests utilisent les trois API et un vrai Redis Docker, sans simulation.
+Les tests utilisent les trois API, un vrai Redis et un vrai MongoDB Docker, sans simulation.
 La suite Python vérifie les Hashes, publication/consommation, les quatre sens
 de communication, les projections, les prix, les stocks, les doublons,
 annulations/retours, deux variantes d'un même produit et les entrées invalides.

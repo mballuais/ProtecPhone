@@ -1,0 +1,330 @@
+ Container protecphone-redis-1 Running 
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-sav-1 Stopping 
+ Container protecphone-product-1 Stopping 
+ Container protecphone-orders-1 Stopping 
+ Container protecphone-sav-1 Stopped 
+ Container protecphone-orders-1 Stopped 
+ Container protecphone-product-1 Stopped 
+ Container protecphone-checks-run-9114754db4a3 Creating 
+ Container protecphone-checks-run-9114754db4a3 Created 
+OK : reset Redis preserve les donnees hors namespace
+Reset limite a protecphone:demo:* : 38 cles
+products 6
+orders 5
+sav_tickets 2
+product_replicas 6
+order_replicas 5
+stock_allocations 5
+sav_status_replicas 2
+OK : reset MongoDB preserve les donnees hors namespace
+{ acknowledged: true, deletedCount: 1 }
+ Container protecphone-redis-1 Running 
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-product-1 Starting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-orders-1 Starting 
+ Container protecphone-sav-1 Starting 
+ Container protecphone-product-1 Started 
+ Container protecphone-orders-1 Started 
+ Container protecphone-sav-1 Started 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-product-1 Waiting 
+ Container protecphone-orders-1 Waiting 
+ Container protecphone-sav-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-product-1 Healthy 
+ Container protecphone-orders-1 Healthy 
+ Container protecphone-sav-1 Healthy 
+ Container protecphone-checks-run-84783a9a67f6 Creating 
+ Container protecphone-checks-run-84783a9a67f6 Created 
+OK : cinq Hashes Produit et leurs repliques automatiques
+OK : trois commandes, fan-out Produit/SAV, stocks 78 / 49 / 27
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+OK : deux tickets SAV, retour SAV vers Commandes, CMD-42 EXPEDIEE dans SAV
+{
+  "stocks": {
+    "coque-001": 78,
+    "coque-002": 49,
+    "coque-003": 27,
+    "coque-004": 40,
+    "coque-005": 100
+  },
+  "commande": {
+    "total": 29.98,
+    "client": {
+      "clientId": "CLI-7",
+      "nom": "Marie Dupont"
+    },
+    "lignes": [
+      {
+        "produitId": "coque-001",
+        "nom": "Coque transparente renforcée",
+        "couleur": "noir",
+        "modele": "iPhone 15",
+        "quantite": 2,
+        "prixUnitaire": 14.99
+      }
+    ],
+    "dateCommande": "2026-10-07T14:00:00Z",
+    "commandeId": "CMD-42",
+    "statut": "EXPEDIEE"
+  },
+  "evenements": {
+    "AfterSalesStatusChanged": 2,
+    "OrderCreated": 3,
+    "OrderStatusChanged": 1,
+    "ProductCreated": 5,
+    "StockChanged": 3
+  }
+}
+products: 5 OK
+orders: 3 OK
+sav_tickets: 2 OK
+product_replicas: 5 OK
+order_replicas: 3 OK
+{
+  _id: 'protecphone:demo:product:coque-001',
+  compatibilite: [
+    'iPhone 15'
+  ],
+  nom: 'Coque transparente renforcée',
+  variantes: [
+    {
+      prix: 14.99,
+      stock: 78,
+      couleur: 'noir'
+    }
+  ],
+  produitId: 'coque-001',
+  _namespace: 'protecphone:demo'
+}
+[
+  {
+    _id: 'protecphone:demo:order:CMD-42',
+    adresseLivraison: '12 rue des Lilas, 75000 Paris, France',
+    total: 29.98,
+    dateCommande: '2026-10-07T14:00:00Z',
+    statut: 'EXPEDIEE',
+    lignes: [
+      {
+        modele: 'iPhone 15',
+        produitId: 'coque-001',
+        quantite: 2,
+        nom: 'Coque transparente renforcée',
+        prixUnitaire: 14.99,
+        couleur: 'noir'
+      }
+    ],
+    commandeId: 'CMD-42',
+    client: {
+      nom: 'Marie Dupont',
+      clientId: 'CLI-7'
+    },
+    _namespace: 'protecphone:demo'
+  }
+]
+{
+  _id: 'protecphone:demo:replica:order:CMD-42',
+  total: 29.98,
+  dateCommande: '2026-10-07T14:00:00Z',
+  commandeId: 'CMD-42',
+  statut: 'EXPEDIEE',
+  lignes: [
+    {
+      modele: 'iPhone 15',
+      produitId: 'coque-001',
+      quantite: 2,
+      nom: 'Coque transparente renforcée',
+      prixUnitaire: 14.99,
+      couleur: 'noir'
+    }
+  ],
+  client: {
+    nom: 'Marie Dupont',
+    clientId: 'CLI-7'
+  },
+  _namespace: 'protecphone:demo'
+}
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Running 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-orders-1 Stopping 
+ Container protecphone-sav-1 Stopping 
+ Container protecphone-product-1 Stopping 
+ Container protecphone-orders-1 Stopped 
+ Container protecphone-sav-1 Stopped 
+ Container protecphone-product-1 Stopped 
+ Container protecphone-checks-run-15b9223217bb Creating 
+ Container protecphone-checks-run-15b9223217bb Created 
+OK : reset Redis preserve les donnees hors namespace
+Reset limite a protecphone:demo:* : 30 cles
+products 5
+orders 3
+sav_tickets 2
+product_replicas 5
+order_replicas 3
+stock_allocations 3
+sav_status_replicas 2
+OK : reset MongoDB preserve les donnees hors namespace
+{ acknowledged: true, deletedCount: 1 }
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Running 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-sav-1 Starting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-product-1 Starting 
+ Container protecphone-orders-1 Starting 
+ Container protecphone-sav-1 Started 
+ Container protecphone-product-1 Started 
+ Container protecphone-orders-1 Started 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-product-1 Waiting 
+ Container protecphone-orders-1 Waiting 
+ Container protecphone-sav-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-product-1 Healthy 
+ Container protecphone-sav-1 Healthy 
+ Container protecphone-orders-1 Healthy 
+ Container protecphone-checks-run-6c8299e9ce05 Creating 
+ Container protecphone-checks-run-6c8299e9ce05 Created 
+OK : cinq Hashes Produit et leurs repliques automatiques
+OK : trois commandes, fan-out Produit/SAV, stocks 78 / 49 / 27
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+OK : deux tickets SAV, retour SAV vers Commandes, CMD-42 EXPEDIEE dans SAV
+{
+  "stocks": {
+    "coque-001": 78,
+    "coque-002": 49,
+    "coque-003": 27,
+    "coque-004": 40,
+    "coque-005": 100
+  },
+  "commande": {
+    "total": 29.98,
+    "client": {
+      "clientId": "CLI-7",
+      "nom": "Marie Dupont"
+    },
+    "lignes": [
+      {
+        "produitId": "coque-001",
+        "nom": "Coque transparente renforcée",
+        "couleur": "noir",
+        "modele": "iPhone 15",
+        "quantite": 2,
+        "prixUnitaire": 14.99
+      }
+    ],
+    "dateCommande": "2026-10-07T14:00:00Z",
+    "commandeId": "CMD-42",
+    "statut": "EXPEDIEE"
+  },
+  "evenements": {
+    "AfterSalesStatusChanged": 2,
+    "OrderCreated": 3,
+    "OrderStatusChanged": 1,
+    "ProductCreated": 5,
+    "StockChanged": 3
+  }
+}
+products: 5 OK
+orders: 3 OK
+sav_tickets: 2 OK
+product_replicas: 5 OK
+order_replicas: 3 OK
+{
+  _id: 'protecphone:demo:product:coque-001',
+  compatibilite: [
+    'iPhone 15'
+  ],
+  nom: 'Coque transparente renforcée',
+  variantes: [
+    {
+      prix: 14.99,
+      stock: 78,
+      couleur: 'noir'
+    }
+  ],
+  produitId: 'coque-001',
+  _namespace: 'protecphone:demo'
+}
+[
+  {
+    _id: 'protecphone:demo:order:CMD-42',
+    adresseLivraison: '12 rue des Lilas, 75000 Paris, France',
+    total: 29.98,
+    dateCommande: '2026-10-07T14:00:00Z',
+    statut: 'EXPEDIEE',
+    lignes: [
+      {
+        modele: 'iPhone 15',
+        produitId: 'coque-001',
+        quantite: 2,
+        nom: 'Coque transparente renforcée',
+        prixUnitaire: 14.99,
+        couleur: 'noir'
+      }
+    ],
+    commandeId: 'CMD-42',
+    client: {
+      nom: 'Marie Dupont',
+      clientId: 'CLI-7'
+    },
+    _namespace: 'protecphone:demo'
+  }
+]
+{
+  _id: 'protecphone:demo:replica:order:CMD-42',
+  total: 29.98,
+  dateCommande: '2026-10-07T14:00:00Z',
+  commandeId: 'CMD-42',
+  statut: 'EXPEDIEE',
+  lignes: [
+    {
+      modele: 'iPhone 15',
+      produitId: 'coque-001',
+      quantite: 2,
+      nom: 'Coque transparente renforcée',
+      prixUnitaire: 14.99,
+      couleur: 'noir'
+    }
+  ],
+  client: {
+    nom: 'Marie Dupont',
+    clientId: 'CLI-7'
+  },
+  _namespace: 'protecphone:demo'
+}

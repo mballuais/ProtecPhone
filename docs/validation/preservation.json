@@ -1,0 +1,15 @@
+{
+  "comparison": "Git content, ignoring Windows CRLF normalization",
+  "files": {
+    "README.md": true,
+    "Aggregat-Commande.json": true,
+    "Aggregat-Produit.json": true,
+    "Aggregat-SAV.json": true,
+    "Commande-CreateOrder.json": true,
+    "Commande-CreateProduct.json": true,
+    "Commande-CreateSAVTicket.json": true,
+    "Replica-Commande-SAV.json": true,
+    "Replica-Produit-Commandes.json": true,
+    "ListEvents": true
+  }
+}

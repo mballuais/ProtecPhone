@@ -1,0 +1,329 @@
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Running 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-orders-1 Stopping 
+ Container protecphone-product-1 Stopping 
+ Container protecphone-sav-1 Stopping 
+ Container protecphone-product-1 Stopped 
+ Container protecphone-sav-1 Stopped 
+ Container protecphone-orders-1 Stopped 
+ Container protecphone-checks-run-d3c78f1bb34d Creating 
+ Container protecphone-checks-run-d3c78f1bb34d Created 
+OK : reset Redis preserve les donnees hors namespace
+Reset limite a protecphone:demo:* : 38 cles
+products 6
+orders 5
+sav_tickets 2
+product_replicas 6
+order_replicas 5
+stock_allocations 5
+sav_status_replicas 2
+OK : reset MongoDB preserve les donnees hors namespace
+{ acknowledged: true, deletedCount: 1 }
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Running 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-product-1 Starting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-orders-1 Starting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-sav-1 Starting 
+ Container protecphone-product-1 Started 
+ Container protecphone-orders-1 Started 
+ Container protecphone-sav-1 Started 
+ Container protecphone-sav-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-product-1 Waiting 
+ Container protecphone-orders-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-product-1 Healthy 
+ Container protecphone-orders-1 Healthy 
+ Container protecphone-sav-1 Healthy 
+ Container protecphone-checks-run-84ad31671ef3 Creating 
+ Container protecphone-checks-run-84ad31671ef3 Created 
+OK : cinq Hashes Produit et leurs repliques automatiques
+OK : trois commandes, fan-out Produit/SAV, stocks 78 / 49 / 27
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+OK : deux tickets SAV, retour SAV vers Commandes, CMD-42 EXPEDIEE dans SAV
+{
+  "stocks": {
+    "coque-001": 78,
+    "coque-002": 49,
+    "coque-003": 27,
+    "coque-004": 40,
+    "coque-005": 100
+  },
+  "commande": {
+    "commandeId": "CMD-42",
+    "client": {
+      "clientId": "CLI-7",
+      "nom": "Marie Dupont"
+    },
+    "statut": "EXPEDIEE",
+    "total": 29.98,
+    "dateCommande": "2026-10-07T14:00:00Z",
+    "lignes": [
+      {
+        "produitId": "coque-001",
+        "nom": "Coque transparente renforcée",
+        "couleur": "noir",
+        "modele": "iPhone 15",
+        "quantite": 2,
+        "prixUnitaire": 14.99
+      }
+    ]
+  },
+  "evenements": {
+    "AfterSalesStatusChanged": 2,
+    "OrderCreated": 3,
+    "OrderStatusChanged": 1,
+    "ProductCreated": 5,
+    "StockChanged": 3
+  }
+}
+products: 5 OK
+orders: 3 OK
+sav_tickets: 2 OK
+product_replicas: 5 OK
+order_replicas: 3 OK
+{
+  _id: 'protecphone:demo:product:coque-001',
+  compatibilite: [
+    'iPhone 15'
+  ],
+  nom: 'Coque transparente renforcée',
+  variantes: [
+    {
+      prix: 14.99,
+      stock: 78,
+      couleur: 'noir'
+    }
+  ],
+  produitId: 'coque-001',
+  _namespace: 'protecphone:demo'
+}
+[
+  {
+    _id: 'protecphone:demo:order:CMD-42',
+    adresseLivraison: '12 rue des Lilas, 75000 Paris, France',
+    total: 29.98,
+    commandeId: 'CMD-42',
+    lignes: [
+      {
+        modele: 'iPhone 15',
+        produitId: 'coque-001',
+        quantite: 2,
+        nom: 'Coque transparente renforcée',
+        prixUnitaire: 14.99,
+        couleur: 'noir'
+      }
+    ],
+    statut: 'EXPEDIEE',
+    dateCommande: '2026-10-07T14:00:00Z',
+    client: {
+      nom: 'Marie Dupont',
+      clientId: 'CLI-7'
+    },
+    _namespace: 'protecphone:demo'
+  }
+]
+{
+  _id: 'protecphone:demo:replica:order:CMD-42',
+  total: 29.98,
+  commandeId: 'CMD-42',
+  lignes: [
+    {
+      modele: 'iPhone 15',
+      produitId: 'coque-001',
+      quantite: 2,
+      nom: 'Coque transparente renforcée',
+      prixUnitaire: 14.99,
+      couleur: 'noir'
+    }
+  ],
+  client: {
+    nom: 'Marie Dupont',
+    clientId: 'CLI-7'
+  },
+  dateCommande: '2026-10-07T14:00:00Z',
+  statut: 'EXPEDIEE',
+  _namespace: 'protecphone:demo'
+}
+ Container protecphone-checks-run-aaf85b7901b1 Creating 
+ Container protecphone-checks-run-aaf85b7901b1 Created 
+test_01_hash_creation_and_read (__main__.IntegrationTests.test_01_hash_creation_and_read) ... ok
+test_02_publication_and_consumption (__main__.IntegrationTests.test_02_publication_and_consumption) ... ok
+test_03_product_to_orders (__main__.IntegrationTests.test_03_product_to_orders) ... ok
+test_04_orders_to_product (__main__.IntegrationTests.test_04_orders_to_product) ... ok
+test_05_orders_to_sav (__main__.IntegrationTests.test_05_orders_to_sav) ... ok
+test_06_sav_to_orders (__main__.IntegrationTests.test_06_sav_to_orders) ... ok
+test_07_price_and_stock_replication (__main__.IntegrationTests.test_07_price_and_stock_replication) ... ok
+test_08_full_product_update (__main__.IntegrationTests.test_08_full_product_update) ... ok
+test_09_duplicate_event_does_not_reduce_stock (__main__.IntegrationTests.test_09_duplicate_event_does_not_reduce_stock) ... ok
+test_10_cancel_once_and_replicate (__main__.IntegrationTests.test_10_cancel_once_and_replicate) ... ok
+test_11_return_restock (__main__.IntegrationTests.test_11_return_restock) ... ok
+test_12_invalid_order_does_not_publish (__main__.IntegrationTests.test_12_invalid_order_does_not_publish) ... ok
+test_13_duplicate_command (__main__.IntegrationTests.test_13_duplicate_command) ... ok
+test_14_multi_line_and_variant_stock (__main__.IntegrationTests.test_14_multi_line_and_variant_stock) ... ok
+test_15_mongo_aggregates_and_replicas (__main__.IntegrationTests.test_15_mongo_aggregates_and_replicas) ... ok
+test_16_duplicate_replica_events_preserve_latest_state (__main__.IntegrationTests.test_16_duplicate_replica_events_preserve_latest_state) ... OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+ok
+test_17_mongo_outbox_replay (__main__.IntegrationTests.test_17_mongo_outbox_replay) ... ok
+test_18_mongo_collection_ownership (__main__.IntegrationTests.test_18_mongo_collection_ownership) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 2.594s
+
+OK
+ Container protecphone-orders-1 Stopping 
+ Container protecphone-orders-1 Stopped 
+ Container protecphone-checks-run-2721786476fd Creating 
+ Container protecphone-checks-run-2721786476fd Created 
+OK : evenement conserve pendant l'arret de Commandes
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Running 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-orders-1 Starting 
+ Container protecphone-orders-1 Started 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-orders-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-orders-1 Healthy 
+ Container protecphone-checks-run-8ade10f0a76b Creating 
+ Container protecphone-checks-run-8ade10f0a76b Created 
+OK : consommateur indisponible puis reprise et synchronisation
+ Container protecphone-product-1 Stopping 
+ Container protecphone-product-1 Stopped 
+ Container protecphone-checks-run-3da6cc1bad0e Creating 
+ Container protecphone-checks-run-3da6cc1bad0e Created 
+OK : message reclame dans processing, avant son traitement
+ Container protecphone-redis-1 Restarting 
+ Container protecphone-redis-1 Started 
+ Container protecphone-orders-1 Running 
+ Container protecphone-sav-1 Running 
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Running 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-product-1 Starting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-product-1 Started 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-product-1 Waiting 
+ Container protecphone-orders-1 Waiting 
+ Container protecphone-sav-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-sav-1 Healthy 
+ Container protecphone-orders-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-product-1 Healthy 
+ Container protecphone-checks-run-22b47b5b01b8 Creating 
+ Container protecphone-checks-run-22b47b5b01b8 Created 
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+OK : reprise de processing et rejeu idempotent apres redemarrage
+ Container protecphone-mongodb-1 Restarting 
+ Container protecphone-mongodb-1 Started 
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-checks-run-0dc5a6c12a0c Creating 
+ Container protecphone-checks-run-0dc5a6c12a0c Created 
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+ Container protecphone-mongodb-1 Stopping 
+ Container protecphone-mongodb-1 Stopped 
+ Container protecphone-checks-run-c999200d9f8c Creating 
+ Container protecphone-checks-run-c999200d9f8c Created 
+OK : ecriture Redis acceptee et projection conservee pendant la panne MongoDB
+ Container protecphone-product-1 Restarting 
+ Container protecphone-product-1 Started 
+ Container protecphone-mongodb-1 Starting 
+ Container protecphone-mongodb-1 Started 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-checks-run-62dcb87006e2 Creating 
+ Container protecphone-checks-run-62dcb87006e2 Created 
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+OK : reprise outbox apres panne MongoDB et redemarrage du service, sans perte
+ Container protecphone-product-1 Killing 
+ Container protecphone-product-1 Killed 
+ Container protecphone-redis-1 Running 
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-product-1 Starting 
+ Container protecphone-product-1 Started 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-product-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-product-1 Healthy 
+ Container protecphone-checks-run-65aa78cb4aa5 Creating 
+ Container protecphone-checks-run-65aa78cb4aa5 Created 
+OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis
+OK : reprise de processing et rejeu idempotent apres redemarrage
+OK : apres rejeux et reprises products = 6
+OK : apres rejeux et reprises orders = 5
+OK : apres rejeux et reprises sav_tickets = 2
+OK : apres rejeux et reprises product_replicas = 6
+OK : apres rejeux et reprises order_replicas = 5
+OK : suite Redis/MongoDB + reprise des services, persistance des deux bases, panne MongoDB et arret brutal
+ Container protecphone-product-1 Running 
+ Container protecphone-orders-1 Running 
+ Container protecphone-sav-1 Running 
+ Container protecphone-mongodb-1 Running 
+ Container protecphone-redis-1 Running 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-redis-1 Waiting 
+ Container protecphone-product-1 Waiting 
+ Container protecphone-orders-1 Waiting 
+ Container protecphone-sav-1 Waiting 
+ Container protecphone-mongodb-1 Waiting 
+ Container protecphone-redis-1 Healthy 
+ Container protecphone-mongodb-1 Healthy 
+ Container protecphone-orders-1 Healthy 
+ Container protecphone-sav-1 Healthy 
+ Container protecphone-product-1 Healthy 

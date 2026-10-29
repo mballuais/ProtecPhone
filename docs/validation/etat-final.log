@@ -1,0 +1,6 @@
+NAME                    IMAGE                       COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+protecphone-mongodb-1   mongo:8.0.16                "docker-entrypoint.s…"   mongodb   11 minutes ago   Up 4 minutes (healthy)    27017/tcp
+protecphone-orders-1    protecphone-service:local   "java -jar app.jar"      orders    27 seconds ago   Up 24 seconds (healthy)   127.0.0.1:28082->8080/tcp
+protecphone-product-1   protecphone-service:local   "java -jar app.jar"      product   27 seconds ago   Up 23 seconds (healthy)   127.0.0.1:28081->8080/tcp
+protecphone-redis-1     redis:7.4.2-alpine          "docker-entrypoint.s…"   redis     11 minutes ago   Up 5 minutes (healthy)    127.0.0.1:6380->6379/tcp
+protecphone-sav-1       protecphone-service:local   "java -jar app.jar"      sav       27 seconds ago   Up 23 seconds (healthy)   127.0.0.1:28083->8080/tcp

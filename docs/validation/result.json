@@ -1,0 +1,12 @@
+{
+  "started_utc": "2026-10-29T09:01:43.424489+00:00",
+  "finished_utc": "2026-10-29T09:03:36.152205+00:00",
+  "command": [
+    "python",
+    "scripts/run.py",
+    "test",
+    "--no-build"
+  ],
+  "exit_code": 0,
+  "base_commit": "33ed96474adf85c8f2c046309da081b75fffb0ba"
+}

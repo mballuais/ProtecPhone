@@ -1,0 +1,188 @@
+ Image protecphone-service:local Building 
+ Image protecphone-service:local Building 
+ Image protecphone-service:local Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.34kB 0.0s done
+#1 DONE 0.0s
+
+#2 [product internal] load build definition from Dockerfile
+#2 DONE 0.0s
+
+#2 [product internal] load build definition from Dockerfile
+#2 transferring dockerfile: 344B done
+#2 DONE 0.0s
+
+#3 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [auth] library/maven:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [product internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#5 DONE 0.8s
+
+#6 [orders internal] load metadata for docker.io/library/maven:3.9.11-eclipse-temurin-21
+#6 DONE 0.8s
+
+#7 [sav internal] load .dockerignore
+#7 transferring context: 67B done
+#7 DONE 0.0s
+
+#8 [sav stage-1 1/3] FROM docker.io/library/eclipse-temurin:21-jre@sha256:f37956012e0cb88400e5b3689aeae2d2d735364c1922ae2225536163b5a99f56
+#8 resolve docker.io/library/eclipse-temurin:21-jre@sha256:f37956012e0cb88400e5b3689aeae2d2d735364c1922ae2225536163b5a99f56 0.0s done
+#8 DONE 0.0s
+
+#9 [product build 1/6] FROM docker.io/library/maven:3.9.11-eclipse-temurin-21@sha256:6fdc855a6ed81d288ca7ca37ac6ff5e9308b612485c0801d70b25a858c83d237
+#9 resolve docker.io/library/maven:3.9.11-eclipse-temurin-21@sha256:6fdc855a6ed81d288ca7ca37ac6ff5e9308b612485c0801d70b25a858c83d237 0.0s done
+#9 DONE 0.0s
+
+#10 [sav internal] load build context
+#10 transferring context: 18.87kB 0.0s done
+#10 DONE 0.0s
+
+#11 [product build 3/6] COPY pom.xml .
+#11 CACHED
+
+#12 [product build 2/6] WORKDIR /build
+#12 CACHED
+
+#13 [orders build 4/6] RUN mvn -B dependency:go-offline
+#13 CACHED
+
+#14 [sav build 5/6] COPY src src
+#14 DONE 0.1s
+
+#15 [orders build 6/6] RUN mvn -B verify
+#15 2.772 [INFO] Scanning for projects...
+#15 3.222 [INFO] 
+#15 3.222 [INFO] ---------------------< fr.protecphone:redis-demo >----------------------
+#15 3.222 [INFO] Building redis-demo 1.0.0
+#15 3.222 [INFO]   from pom.xml
+#15 3.222 [INFO] --------------------------------[ jar ]---------------------------------
+#15 4.005 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-common/4.1.128.Final/netty-common-4.1.128.Final.pom
+#15 4.634 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-common/4.1.128.Final/netty-common-4.1.128.Final.pom (10 kB at 16 kB/s)
+#15 4.673 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-parent/4.1.128.Final/netty-parent-4.1.128.Final.pom
+#15 4.761 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-parent/4.1.128.Final/netty-parent-4.1.128.Final.pom (100 kB at 1.2 MB/s)
+#15 4.796 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-handler/4.1.128.Final/netty-handler-4.1.128.Final.pom
+#15 4.841 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-handler/4.1.128.Final/netty-handler-4.1.128.Final.pom (5.4 kB at 117 kB/s)
+#15 4.853 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.1.128.Final/netty-resolver-4.1.128.Final.pom
+#15 4.889 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.1.128.Final/netty-resolver-4.1.128.Final.pom (2.2 kB at 61 kB/s)
+#15 4.902 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-buffer/4.1.128.Final/netty-buffer-4.1.128.Final.pom
+#15 4.931 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-buffer/4.1.128.Final/netty-buffer-4.1.128.Final.pom (2.2 kB at 75 kB/s)
+#15 4.939 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.1.128.Final/netty-transport-4.1.128.Final.pom
+#15 4.964 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.1.128.Final/netty-transport-4.1.128.Final.pom (2.9 kB at 117 kB/s)
+#15 4.969 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-unix-common/4.1.128.Final/netty-transport-native-unix-common-4.1.128.Final.pom
+#15 5.000 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-unix-common/4.1.128.Final/netty-transport-native-unix-common-4.1.128.Final.pom (34 kB at 1.1 MB/s)
+#15 5.007 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-codec/4.1.128.Final/netty-codec-4.1.128.Final.pom
+#15 5.031 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-codec/4.1.128.Final/netty-codec-4.1.128.Final.pom (6.1 kB at 253 kB/s)
+#15 5.037 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/projectreactor/reactor-core/3.7.12/reactor-core-3.7.12.pom
+#15 5.066 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/projectreactor/reactor-core/3.7.12/reactor-core-3.7.12.pom (2.1 kB at 74 kB/s)
+#15 5.264 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.pom
+#15 5.298 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.pom (19 kB at 570 kB/s)
+#15 5.301 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-parent/1.17.8/byte-buddy-parent-1.17.8.pom
+#15 5.331 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-parent/1.17.8/byte-buddy-parent-1.17.8.pom (66 kB at 2.2 MB/s)
+#15 5.360 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.pom
+#15 5.387 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.pom (14 kB at 532 kB/s)
+#15 5.456 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-common/4.1.128.Final/netty-common-4.1.128.Final.jar
+#15 5.537 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-common/4.1.128.Final/netty-common-4.1.128.Final.jar (725 kB at 8.9 MB/s)
+#15 5.540 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-handler/4.1.128.Final/netty-handler-4.1.128.Final.jar
+#15 5.540 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.1.128.Final/netty-resolver-4.1.128.Final.jar
+#15 5.541 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-buffer/4.1.128.Final/netty-buffer-4.1.128.Final.jar
+#15 5.543 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-unix-common/4.1.128.Final/netty-transport-native-unix-common-4.1.128.Final.jar
+#15 5.544 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-codec/4.1.128.Final/netty-codec-4.1.128.Final.jar
+#15 5.603 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-resolver/4.1.128.Final/netty-resolver-4.1.128.Final.jar (38 kB at 592 kB/s)
+#15 5.603 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.1.128.Final/netty-transport-4.1.128.Final.jar
+#15 5.634 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport-native-unix-common/4.1.128.Final/netty-transport-native-unix-common-4.1.128.Final.jar (44 kB at 477 kB/s)
+#15 5.634 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/io/projectreactor/reactor-core/3.7.12/reactor-core-3.7.12.jar
+#15 5.648 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-handler/4.1.128.Final/netty-handler-4.1.128.Final.jar (581 kB at 5.4 MB/s)
+#15 5.648 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar
+#15 5.668 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-buffer/4.1.128.Final/netty-buffer-4.1.128.Final.jar (354 kB at 2.8 MB/s)
+#15 5.668 [INFO] Downloading from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar
+#15 5.672 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-codec/4.1.128.Final/netty-codec-4.1.128.Final.jar (357 kB at 2.8 MB/s)
+#15 5.738 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/netty/netty-transport/4.1.128.Final/netty-transport-4.1.128.Final.jar (522 kB at 2.7 MB/s)
+#15 5.757 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar (367 kB at 1.7 MB/s)
+#15 5.857 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/io/projectreactor/reactor-core/3.7.12/reactor-core-3.7.12.jar (1.9 MB at 6.1 MB/s)
+#15 6.159 [INFO] Downloaded from central: https://repo.maven.apache.org/maven2/net/bytebuddy/byte-buddy/1.17.8/byte-buddy-1.17.8.jar (9.0 MB at 15 MB/s)
+#15 6.178 [INFO] 
+#15 6.178 [INFO] --- resources:3.3.1:resources (default-resources) @ redis-demo ---
+#15 6.361 [INFO] Copying 1 resource from src/main/resources to target/classes
+#15 6.376 [INFO] Copying 0 resource from src/main/resources to target/classes
+#15 6.378 [INFO] 
+#15 6.378 [INFO] --- compiler:3.14.1:compile (default-compile) @ redis-demo ---
+#15 6.519 [INFO] Recompiling the module because of changed source code.
+#15 6.531 [INFO] Compiling 7 source files with javac [debug parameters release 21] to target/classes
+#15 8.104 [INFO] /build/src/main/java/fr/protecphone/RedisStore.java: /build/src/main/java/fr/protecphone/RedisStore.java uses or overrides a deprecated API.
+#15 8.104 [INFO] /build/src/main/java/fr/protecphone/RedisStore.java: Recompile with -Xlint:deprecation for details.
+#15 8.104 [INFO] 
+#15 8.104 [INFO] --- resources:3.3.1:testResources (default-testResources) @ redis-demo ---
+#15 8.116 [INFO] skip non existing resourceDirectory /build/src/test/resources
+#15 8.117 [INFO] 
+#15 8.119 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ redis-demo ---
+#15 8.127 [INFO] No sources to compile
+#15 8.127 [INFO] 
+#15 8.127 [INFO] --- surefire:3.5.4:test (default-test) @ redis-demo ---
+#15 8.364 [INFO] No tests to run.
+#15 8.377 [INFO] 
+#15 8.377 [INFO] --- jar:3.4.2:jar (default-jar) @ redis-demo ---
+#15 8.765 [INFO] Building jar: /build/target/redis-demo-1.0.0.jar
+#15 8.819 [INFO] 
+#15 8.819 [INFO] --- spring-boot:3.5.7:repackage (repackage) @ redis-demo ---
+#15 10.52 [INFO] Replacing main artifact /build/target/redis-demo-1.0.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+#15 10.52 [INFO] The original artifact has been renamed to /build/target/redis-demo-1.0.0.jar.original
+#15 10.52 [INFO] ------------------------------------------------------------------------
+#15 10.52 [INFO] BUILD SUCCESS
+#15 10.52 [INFO] ------------------------------------------------------------------------
+#15 10.52 [INFO] Total time:  7.798 s
+#15 10.52 [INFO] Finished at: 2026-10-29T09:06:41Z
+#15 10.52 [INFO] ------------------------------------------------------------------------
+#15 DONE 10.7s
+
+#16 [product stage-1 2/3] WORKDIR /app
+#16 CACHED
+
+#17 [product stage-1 3/3] COPY --from=build /build/target/redis-demo-1.0.0.jar app.jar
+#17 DONE 0.2s
+
+#18 [orders] exporting to image
+#18 exporting layers
+#18 exporting layers 1.3s done
+#18 exporting manifest sha256:c08988be70ef5ec1f97f42dbe8208f4723cd12988083664c98efe358608452c3 0.0s done
+#18 exporting config sha256:72760daf4f378f3cdb5f5164c266ed978bc415ededffa6b1f92025d3e49dc364 0.0s done
+#18 exporting attestation manifest sha256:ab4329e9f565f9325eafccfec759639f19e7068cc5035938527672cba0006c51 0.0s done
+#18 exporting manifest list sha256:5a0d10c07872b972b4f5d8f308e02b12fd257d0dd73910c4bcfe9790dbadaecc 0.0s done
+#18 naming to docker.io/library/protecphone-service:local done
+#18 unpacking to docker.io/library/protecphone-service:local
+#18 unpacking to docker.io/library/protecphone-service:local 0.3s done
+#18 DONE 1.8s
+
+#19 [sav] exporting to image
+#19 exporting layers 1.3s done
+#19 exporting manifest sha256:a2ecff9e9b051d5c517a4e62721448e71d4142bb3a003ecb63fb302c7a88cb79 0.0s done
+#19 exporting config sha256:eb04909d58b39ad20c1a56ffe49f4cf2b98355b6ea62c615e53968981e3f277c 0.0s done
+#19 exporting attestation manifest sha256:dc805bdba08d04a436502354a87580d31f38a94bd8c4df9980559d9ab9736a9f 0.1s done
+#19 exporting manifest list sha256:426454d959b9b91fd2481af743fc8ecb60392cc49159a76772d23239451f6fd8 0.0s done
+#19 naming to docker.io/library/protecphone-service:local 0.0s done
+#19 unpacking to docker.io/library/protecphone-service:local 0.2s done
+#19 DONE 1.7s
+
+#20 [product] exporting to image
+#20 exporting layers 1.3s done
+#20 exporting manifest sha256:0782eb7fc7a51be5e24851f6863b1ff09d2564e8e1832d335e2c48a7ea21f7e1 0.0s done
+#20 exporting config sha256:1fdefc1c41e668d4dc9f0f98da23e5d26b6876d982b05998d1b1146e1fe970a5 0.0s done
+#20 exporting attestation manifest sha256:cdefed7e4496e05934778a4ea55a4e490519b7874ec2f0a50c309657fd774f05 0.1s done
+#20 exporting manifest list sha256:9a91b704eb4c934bd2098020170cf32e05b2069104ff47322b06c571f74079d3 0.0s done
+#20 naming to docker.io/library/protecphone-service:local done
+#20 unpacking to docker.io/library/protecphone-service:local 0.3s done
+#20 DONE 1.8s
+
+#21 [sav] resolving provenance for metadata file
+#21 DONE 0.4s
+
+#22 [orders] resolving provenance for metadata file
+#22 DONE 0.0s
+
+#23 [product] resolving provenance for metadata file
+#23 DONE 0.4s
+ Image protecphone-service:local Built 
+ Image protecphone-service:local Built 
+ Image protecphone-service:local Built 

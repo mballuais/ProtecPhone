@@ -1,0 +1,162 @@
+docker compose exec -T redis redis-cli HGETALL protecphone:demo:product:coque-001
+compatibilite
+["iPhone 15"]
+nom
+Coque transparente renforcée
+variantes
+[{"couleur":"noir","prix":14.99,"stock":78}]
+produitId
+coque-001
+
+exit_code=0
+
+docker compose exec -T redis redis-cli HGET protecphone:demo:order:CMD-42 statut
+EXPEDIEE
+
+exit_code=0
+
+docker compose exec -T redis redis-cli HEXISTS protecphone:demo:order:CMD-42 commandeId
+1
+
+exit_code=0
+
+docker compose exec -T redis redis-cli HGETALL protecphone:demo:replica:order:CMD-42
+total
+29.98
+client
+{"clientId":"CLI-7","nom":"Marie Dupont"}
+lignes
+[{"produitId":"coque-001","nom":"Coque transparente renforcée","couleur":"noir","modele":"iPhone 15","quantite":2,"prixUnitaire":14.99}]
+dateCommande
+2026-10-07T14:00:00Z
+commandeId
+CMD-42
+statut
+EXPEDIEE
+
+exit_code=0
+
+docker compose exec -T redis redis-cli LRANGE protecphone:demo:events 0 0
+{"eventId":"702b581a-8b49-473d-b2ee-9c0a29cdc3a3","type":"ProductCreated","source":"product","occurredAt":"2026-10-29T09:05:03.231086393Z","data":{"produitId":"coque-001","nom":"Coque transparente renforcée","compatibilite":["iPhone 15"],"variantes":[{"couleur":"noir","prix":14.99,"stock":80}]}}
+
+exit_code=0
+
+docker compose exec -T redis redis-cli LLEN protecphone:demo:events
+14
+
+exit_code=0
+
+docker compose exec -T redis redis-cli LLEN protecphone:demo:queue:orders
+0
+
+exit_code=0
+
+docker compose exec -T redis redis-cli LLEN protecphone:demo:mongo:processing:sav
+0
+
+exit_code=0
+
+docker compose exec -T mongodb mongosh protecphone --quiet --eval "db.products.find({_namespace:'protecphone:demo'},{_id:0,_namespace:0}).sort({produitId:1}).toArray()"
+[
+  {
+    compatibilite: [ 'iPhone 15' ],
+    nom: 'Coque transparente renforcée',
+    variantes: [ { prix: 14.99, stock: 78, couleur: 'noir' } ],
+    produitId: 'coque-001'
+  },
+  {
+    compatibilite: [ 'Samsung Galaxy S24' ],
+    nom: 'Coque Samsung Galaxy S24',
+    variantes: [ { prix: 19.99, stock: 49, couleur: 'transparent' } ],
+    produitId: 'coque-002'
+  },
+  {
+    compatibilite: [ 'iPhone 16 Pro' ],
+    nom: 'Coque iPhone 16 Pro',
+    variantes: [ { prix: 24.99, stock: 27, couleur: 'bleu' } ],
+    produitId: 'coque-003'
+  },
+  {
+    compatibilite: [ 'Google Pixel 9' ],
+    nom: 'Coque Google Pixel 9',
+    variantes: [ { prix: 17.99, stock: 40, couleur: 'rouge' } ],
+    produitId: 'coque-004'
+  },
+  {
+    compatibilite: [ 'Xiaomi 14' ],
+    nom: 'Coque Xiaomi 14',
+    variantes: [ { prix: 12.99, stock: 100, couleur: 'noir' } ],
+    produitId: 'coque-005'
+  }
+]
+
+exit_code=0
+
+docker compose exec -T mongodb mongosh protecphone --quiet --eval "db.orders.findOne({_namespace:'protecphone:demo',commandeId:'CMD-42'},{_id:0,_namespace:0})"
+{
+  adresseLivraison: '12 rue des Lilas, 75000 Paris, France',
+  total: 29.98,
+  dateCommande: '2026-10-07T14:00:00Z',
+  statut: 'EXPEDIEE',
+  lignes: [
+    {
+      modele: 'iPhone 15',
+      produitId: 'coque-001',
+      quantite: 2,
+      nom: 'Coque transparente renforcée',
+      prixUnitaire: 14.99,
+      couleur: 'noir'
+    }
+  ],
+  commandeId: 'CMD-42',
+  client: { nom: 'Marie Dupont', clientId: 'CLI-7' }
+}
+
+exit_code=0
+
+docker compose exec -T mongodb mongosh protecphone --quiet --eval "db.orders.find({_namespace:'protecphone:demo',statut:'CONFIRMEE'},{commandeId:1,_id:0}).sort({commandeId:1}).toArray()"
+[ { commandeId: 'CMD-43' }, { commandeId: 'CMD-44' } ]
+
+exit_code=0
+
+docker compose exec -T mongodb mongosh protecphone --quiet --eval "db.orders.find({_namespace:'protecphone:demo','client.clientId':'CLI-7'},{commandeId:1,total:1,_id:0}).toArray()"
+[ { total: 29.98, commandeId: 'CMD-42' } ]
+
+exit_code=0
+
+docker compose exec -T mongodb mongosh protecphone --quiet --eval "db.products.find({_namespace:'protecphone:demo','variantes.stock':78},{produitId:1,_id:0}).toArray()"
+[ { produitId: 'coque-001' } ]
+
+exit_code=0
+
+docker compose exec -T mongodb mongosh protecphone --quiet --eval "db.product_replicas.findOne({_namespace:'protecphone:demo',produitId:'coque-001'},{_id:0,_namespace:0})"
+{
+  compatibilite: [ 'iPhone 15' ],
+  nom: 'Coque transparente renforcée',
+  variantes: [ { prix: 14.99, stock: 78, couleur: 'noir' } ],
+  produitId: 'coque-001'
+}
+
+exit_code=0
+
+docker compose exec -T mongodb mongosh protecphone --quiet --eval "db.order_replicas.findOne({_namespace:'protecphone:demo',commandeId:'CMD-42'},{_id:0,_namespace:0})"
+{
+  total: 29.98,
+  dateCommande: '2026-10-07T14:00:00Z',
+  commandeId: 'CMD-42',
+  statut: 'EXPEDIEE',
+  lignes: [
+    {
+      modele: 'iPhone 15',
+      produitId: 'coque-001',
+      quantite: 2,
+      nom: 'Coque transparente renforcée',
+      prixUnitaire: 14.99,
+      couleur: 'noir'
+    }
+  ],
+  client: { nom: 'Marie Dupont', clientId: 'CLI-7' }
+}
+
+exit_code=0
+
