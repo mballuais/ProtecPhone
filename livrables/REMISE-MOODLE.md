@@ -26,7 +26,6 @@ uniquement les données fictives de l'espace réservé `protecphone:demo`.
 
 Avant téléversement :
 
-- Compléter les membres du groupe dans `rapport/ProtecPhone-Rapport-NoSQL.md`.
 - Régénérer le PDF avec `python scripts/build_report.py`, puis l'archive avec
   `python scripts/package_delivery.py` (ReportLab requis pour le PDF uniquement).
 - Vérifier la version GitHub publiée, ouvrir le PDF et vérifier l'archive.

@@ -67,7 +67,10 @@ def main():
     styles.add(ParagraphStyle(name="CellReport", fontName=base, fontSize=8, leading=11, textColor=BLUE))
     styles.add(ParagraphStyle(name="CodeReport", fontName="Courier", fontSize=8, leading=10.5, backColor=colors.HexColor("#F0F5F8"), borderPadding=8, spaceBefore=5, spaceAfter=13))
     story = []
-    source = (ROOT / "rapport/ProtecPhone-Rapport-NoSQL.md").read_text(encoding="utf-8")
+    source_path = ROOT / "rapport/ProtecPhone-Rapport-NoSQL.txt"
+    if not source_path.exists():
+        source_path = ROOT / "rapport/ProtecPhone-Rapport-NoSQL.md"
+    source = source_path.read_text(encoding="utf-8")
     lines = source.splitlines()
     i = 0
     while i < len(lines):
@@ -126,7 +129,7 @@ def main():
         canvas.line(60, 37, A4[0] - 60, 37)
         canvas.setFont(base, 8)
         canvas.setFillColor(BLUE)
-        canvas.drawString(60, 24, "ProtecPhone | EFREI Paris | M1 2026-2027")
+        canvas.drawString(60, 24, "ProtecPhone | EFREI Paris | M1")
         canvas.drawRightString(A4[0] - 60, 24, str(document.page))
     doc.build(story, onFirstPage=footer, onLaterPages=footer)
     print(target)

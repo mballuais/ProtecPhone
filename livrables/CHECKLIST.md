@@ -7,7 +7,7 @@
 | Un agrégat propre par service | Validé : Produit, Commande, SAV | Trois collections et trois familles de Hashes | Aggregat-*.json, docs/ARCHITECTURE.md |
 | Un service conserve une réplique d'un autre | Validé : deux répliques | Produit dans Commandes, Commande dans SAV | Replica-*.json, test_15 |
 | Mise à jour des répliques par événements | Validé | Création, prix, stock, annulation et statut | Business.receive, RedisStore, scripts/checks.py |
-| Mini-rapport PDF | Généré et contrôlé, 7 pages | PDF et source éditable | rapport/ProtecPhone-Rapport-NoSQL.pdf et .md |
+| Mini-rapport PDF | Généré et contrôlé, 7 pages | PDF et source éditable | rapport/ProtecPhone-Rapport-NoSQL.pdf et .txt |
 | Dépôt Git contenant l'application | Publié sur main et vérifié à distance | Commits e799e86 et 31b0080 ; preuve Git | https://github.com/mballuais/ProtecPhone ; docs/validation/publication.json |
 | Dépôt sur Moodle avant le 15/11/2026 | Intervention étudiante requise | Archive et procédure prêtes ; aucune remise annoncée | livrables/REMISE-MOODLE.md |
 
@@ -23,7 +23,7 @@
 | Schéma d'architecture | Mermaid dans docs/ARCHITECTURE.md ; dessin dans le PDF |
 | README du groupe et exemples métier | Conservés intégralement |
 | Archive sans dépendances ni secrets | ZIP, manifeste SHA-256 et contrôle CRC |
-| Noms des membres | Champ à compléter par le groupe dans la source du rapport |
+| Noms des membres | SERRAKH Touria, Ilyesse El Adaoui, BALLUAIS Matteo, DAOUD Sheyma |
 
 Ne pas confondre la validation technique et la remise administrative. Le statut
 de publication a été vérifié sur GitHub ; Moodle exige un téléversement
