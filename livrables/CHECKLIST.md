@@ -23,7 +23,7 @@
 | Schéma d'architecture | Mermaid dans docs/ARCHITECTURE.md ; dessin dans le PDF |
 | README du groupe et exemples métier | Conservés intégralement |
 | Archive sans dépendances ni secrets | ZIP, manifeste SHA-256 et contrôle CRC |
-| Noms des membres | SERRAKH Touria, Ilyesse El Adaoui, BALLUAIS Matteo, DAOUD Sheyma |
+| Noms des membres | Ilyesse El Adaoui, SERRAKH Touria, BALLUAIS Matteo, DAOUD Sheyma |
 
 Ne pas confondre la validation technique et la remise administrative. Le statut
 de publication a été vérifié sur GitHub ; Moodle exige un téléversement
