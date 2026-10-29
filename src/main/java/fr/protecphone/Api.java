@@ -10,7 +10,13 @@ import java.util.Map;
 public class Api {
     private final Business business;
     private final RedisStore store;
-    public Api(Business business, RedisStore store) { this.business = business; this.store = store; }
+    private final MongoProjection mongo;
+    public Api(Business business, RedisStore store, MongoProjection mongo) {
+        this.business = business; this.store = store; this.mongo = mongo;
+    }
+
+    @GetMapping("/documents/{collection}/{id}")
+    ObjectNode document(@PathVariable String collection, @PathVariable String id) { return mongo.read(collection, id); }
 
     @PostMapping("/products") @ResponseStatus(HttpStatus.CREATED)
     ObjectNode product(@RequestBody ObjectNode data) { return business.product(data, true); }
@@ -44,7 +50,6 @@ public class Api {
         business.role("orders"); var status = store.read("orders:sav-status:" + ticketId);
         Rules.require(id.equals(status.path("commandeId").asText()), "Ticket d'une autre commande"); return status;
     }
-    // Executes the three JSON command envelopes already present in the repository.
     @PostMapping("/commands") @ResponseStatus(HttpStatus.CREATED)
     ObjectNode command(@RequestBody ObjectNode command) {
         Rules.require(command.path("payload").isObject(), "payload requis");

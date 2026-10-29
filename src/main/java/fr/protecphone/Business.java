@@ -126,7 +126,7 @@ public class Business {
                 store.read("order:" + id(data, "commandeId"));
                 plan.write("orders:sav-status:" + id(data, "ticketId"), data);
             } else {
-                Rules.product(data); // Full variant snapshots preserve prices/stocks per colour.
+                Rules.product(data);
                 plan.write("replica:product:" + id(data, "produitId"), data);
             }
         } else if (store.role.equals("sav")) {
@@ -147,7 +147,7 @@ public class Business {
         String orderId = id(order, "commandeId");
         String allocation = "product:allocation:" + orderId;
         String state = store.exists(allocation, "state") ? store.read(allocation).path("state").asText() : "NONE";
-        // Business-level protection also covers repeated cancellation/return commands with a new event ID.
+
         if (type.equals("OrderCreated") && !state.equals("NONE")) return;
         if (!type.equals("OrderCreated") && !state.equals("ALLOCATED")) return;
         array(order, "lignes");
@@ -170,5 +170,6 @@ public class Business {
         ObjectNode ledger = store.json.createObjectNode().put("commandeId", orderId)
                 .put("state", type.equals("OrderCreated") ? "ALLOCATED" : type.equals("OrderCancelled") ? "CANCELLED" : "RETURNED");
         ledger.set("lignes", order.get("lignes")); plan.write(allocation, ledger);
+
     }
 }

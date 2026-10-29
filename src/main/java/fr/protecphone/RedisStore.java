@@ -18,8 +18,7 @@ public class RedisStore {
     public final String prefix;
     public final String role;
 
-    // State changes, fan-out, deduplication and acknowledgement share one Redis transaction.
-    // No process can crash between modifying stock and recording a processed event.
+
     private static final DefaultRedisScript<Long> COMMIT = new DefaultRedisScript<>("""
         local p = cjson.decode(ARGV[1])
         if p.eventId ~= '' and redis.call('HEXISTS', KEYS[1], p.eventId) == 1 then
@@ -32,6 +31,9 @@ public class RedisStore {
         end
         for _, w in ipairs(p.writes) do
             for field, value in pairs(w.fields) do redis.call('HSET', w.key, field, value) end
+        end
+        if #p.writes > 0 then
+            redis.call('RPUSH', KEYS[5], cjson.encode(p.writes))
         end
         for _, e in ipairs(p.events) do
             for _, destination in ipairs(e.destinations) do
@@ -69,7 +71,7 @@ public class RedisStore {
     }
 
     public ObjectNode read(String suffix) {
-        Map<Object, Object> fields = redis.opsForHash().entries(key(suffix)); // HGETALL
+        Map<Object, Object> fields = redis.opsForHash().entries(key(suffix));
         if (fields.isEmpty()) throw new Missing("Introuvable : " + suffix);
         ObjectNode result = json.createObjectNode();
         fields.forEach((field, value) -> {
@@ -96,7 +98,7 @@ public class RedisStore {
             Map<String, String> fields = new LinkedHashMap<>();
             data.fields().forEachRemaining(entry -> fields.put(entry.getKey(), entry.getValue().isTextual()
                     ? entry.getValue().asText() : encode(entry.getValue())));
-            writes.add(Map.of("key", key(suffix), "fields", fields));
+            writes.add(Map.of("key", key(suffix), "fields", fields, "suffix", suffix, "document", data.deepCopy()));
         }
         public void event(String type, ObjectNode data) {
             List<String> recipients = recipients(type);
@@ -111,7 +113,7 @@ public class RedisStore {
             Map<String, Object> p = Map.of("writes", writes, "guards", guards, "events", events,
                     "eventId", eventId, "raw", raw, "time", Instant.now().toString());
             Long result = redis.execute(COMMIT, List.of(key("processed:" + role), key("processing:" + role),
-                    key("events"), key("metrics:" + role)), encode(p));
+                    key("events"), key("metrics:" + role), key("mongo:queue:" + role)), encode(p));
             if (result == null || result < 0) throw new Conflict("Identifiant deja utilise");
         }
     }

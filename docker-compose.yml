@@ -6,6 +6,8 @@ x-service: &service
   depends_on:
     redis:
       condition: service_healthy
+    mongodb:
+      condition: service_healthy
   healthcheck:
     test: ["CMD", "sh", "-c", "curl -fsS http://localhost:8080/actuator/health >/dev/null"]
     interval: 3s
@@ -15,11 +17,21 @@ x-service: &service
   environment: &environment
     SPRING_DATA_REDIS_HOST: redis
     REDIS_PREFIX: protecphone:demo
+    MONGODB_URI: mongodb://mongodb:27017/protecphone?retryWrites=false&w=majority&journal=true&serverSelectionTimeoutMS=3000
 services:
+  mongodb:
+    image: mongo:8.0.16
+    volumes: ["mongo-data:/data/db"]
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "quit(db.adminCommand({ping:1}).ok ? 0 : 1)"]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
   redis:
     image: redis:7.4.2-alpine
     command: ["redis-server", "--appendonly", "yes", "--appendfsync", "always"]
-    ports: ["127.0.0.1:${REDIS_BIND_PORT:-6380}:6379"]
+    ports: ["127.0.0.1:${REDIS_BIND_PORT:-6379}:6379"]
     volumes: ["redis-data:/data"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -31,19 +43,19 @@ services:
     environment:
       <<: *environment
       SERVICE_ROLE: product
-    ports: ["127.0.0.1:${PRODUCT_PORT:-28081}:8080"]
+    ports: ["127.0.0.1:${PRODUCT_PORT:-8081}:8080"]
   orders:
     <<: *service
     environment:
       <<: *environment
       SERVICE_ROLE: orders
-    ports: ["127.0.0.1:${ORDERS_PORT:-28082}:8080"]
+    ports: ["127.0.0.1:${ORDERS_PORT:-8082}:8080"]
   sav:
     <<: *service
     environment:
       <<: *environment
       SERVICE_ROLE: sav
-    ports: ["127.0.0.1:${SAV_PORT:-28083}:8080"]
+    ports: ["127.0.0.1:${SAV_PORT:-8083}:8080"]
   checks:
     image: python:3.13-alpine
     profiles: ["tools"]
@@ -59,3 +71,4 @@ services:
     entrypoint: ["python", "scripts/checks.py"]
 volumes:
   redis-data:
+  mongo-data:

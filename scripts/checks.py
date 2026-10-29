@@ -8,16 +8,17 @@ import time
 import unittest
 import urllib.error
 import urllib.request
+import uuid
 from decimal import Decimal
 
 PREFIX = os.getenv("REDIS_PREFIX", "protecphone:demo")
 URLS = {role: os.getenv(role.upper() + "_URL", "http://localhost:" + port)
-        for role, port in [("product", "28081"), ("orders", "28082"), ("sav", "28083")]}
+        for role, port in [("product", "8081"), ("orders", "8082"), ("sav", "8083")]}
 
 
 def redis(*args):
     """Small RESP2 client so the demonstration needs no Python packages."""
-    with socket.create_connection((os.getenv("REDIS_HOST", "localhost"), int(os.getenv("REDIS_PORT", "6380"))), timeout=5) as connection, connection.makefile("rb") as stream:
+    with socket.create_connection((os.getenv("REDIS_HOST", "localhost"), int(os.getenv("REDIS_PORT", "6379"))), timeout=5) as connection, connection.makefile("rb") as stream:
         encoded = [str(arg).encode("utf-8") for arg in args]
         connection.sendall(b"*%d\r\n" % len(encoded) + b"".join(
             b"$%d\r\n" % len(arg) + arg + b"\r\n" for arg in encoded))
@@ -79,14 +80,15 @@ def wait(description, predicate, timeout=30):
     raise AssertionError(f"Delai depasse ({timeout}s) : {description}. Derniere erreur : {last}")
 
 
-def idle():
+def idle(mongo=True):
     def complete():
         for role in URLS:
             failures = redis("LRANGE", key("dead:" + role), 0, -1)
             if failures:
                 raise AssertionError(f"Messages refuses par {role} : {failures}")
+        kinds = ["queue", "processing"] + (["mongo:queue", "mongo:processing"] if mongo else [])
         return all(redis("LLEN", key(kind + ":" + role)) == 0
-                   for role in URLS for kind in ["queue", "processing"])
+                   for role in URLS for kind in kinds)
     wait("traitement des files et des messages en cours", complete)
 
 
@@ -97,6 +99,23 @@ def hashes(suffix):
 
 def events():
     return [json.loads(raw) for raw in redis("LRANGE", key("events"), 0, -1)]
+
+
+def mongo_verify():
+    idle()
+    for role, collection, path, ids in [
+        ("product", "products", "/products/", [p["produitId"] for p in PRODUCTS]),
+        ("orders", "product_replicas", "/replicas/products/", [p["produitId"] for p in PRODUCTS]),
+        ("orders", "orders", "/orders/", ["CMD-42", "CMD-43", "CMD-44"]),
+        ("sav", "order_replicas", "/replicas/orders/", ["CMD-42", "CMD-43", "CMD-44"]),
+        ("sav", "sav_tickets", "/tickets/", ["SAV-9", "SAV-10"]),
+    ]:
+        for identifier in ids:
+            expected = api(role, path + identifier)
+            # Mongo's healthcheck may pass before an existing Java connection recovers.
+            wait(f"lecture MongoDB {collection}/{identifier}",
+                 lambda r=role, c=collection, i=identifier, e=expected: api(r, f"/documents/{c}/{i}") == e)
+    print("OK : lecture MongoDB des trois agregats et deux repliques, identiques aux Hashes Redis", flush=True)
 
 
 PRODUCTS = [
@@ -167,6 +186,7 @@ def demo():
     assert api("sav", "/replicas/orders/CMD-42")["statut"] == "EXPEDIEE"
     assert hashes("orders:sav-status:SAV-9")["statut"] == "EN_COURS"
     assert redis("TYPE", key("sav:SAV-9")) == "hash"
+    mongo_verify()
     print("OK : deux tickets SAV, retour SAV vers Commandes, CMD-42 EXPEDIEE dans SAV", flush=True)
     print(json.dumps({"stocks": {p["produitId"]: stock(p["produitId"]) for p in PRODUCTS},
                       "commande": api("sav", "/replicas/orders/CMD-42"),
@@ -177,7 +197,8 @@ def demo():
 class IntegrationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        demo()
+        # The orchestrator already seeded and validated both databases.
+        idle()
 
     def test_01_hash_creation_and_read(self):
         self.assertEqual(hashes("product:coque-001")["produitId"], "coque-001")
@@ -271,11 +292,42 @@ class IntegrationTests(unittest.TestCase):
         idle()
         self.assertEqual([v["stock"] for v in api("product", "/products/coque-test")["variantes"]], [8, 17])
 
+    def test_15_mongo_aggregates_and_replicas(self):
+        mongo_verify()
+
+    def test_16_duplicate_replica_events_preserve_latest_state(self):
+        # Replay the most recent snapshots, never a historical event with a new id.
+        for role, event_type in [("orders", "StockChanged"), ("sav", "OrderStatusChanged")]:
+            raw = next(r for r in reversed(redis("LRANGE", key("events"), 0, -1)) if json.loads(r)["type"] == event_type)
+            before = len(events())
+            metric = redis("HGET", key("metrics:" + role), "processed")
+            redis("RPUSH", key("queue:" + role), raw, raw)
+            idle()
+            self.assertEqual(redis("HGET", key("metrics:" + role), "processed"), metric)
+            self.assertEqual(len(events()), before)
+        mongo_verify()
+
+    def test_17_mongo_outbox_replay(self):
+        # A crash after Mongo commit but before Redis ack repeats this replacement.
+        document = api("product", "/products/coque-001")
+        batch = json.dumps([{"suffix": "product:coque-001", "document": document}])
+        redis("RPUSH", key("mongo:queue:product"), batch, batch)
+        idle()
+        self.assertEqual(api("product", "/documents/products/coque-001"), document)
+
+    def test_18_mongo_collection_ownership(self):
+        with self.assertRaisesRegex(RuntimeError, "HTTP 404"):
+            api("sav", "/documents/products/coque-001")
+        with self.assertRaisesRegex(RuntimeError, "HTTP 404"):
+            api("product", "/documents/orders/CMD-42")
+
 
 def reset():
     # The runner stops all three writers before reset; never FLUSHDB/FLUSHALL.
     if PREFIX != "protecphone:demo":
         raise RuntimeError("Reset autorise uniquement pour protecphone:demo")
+    marker = "protecphone:validation:" + str(uuid.uuid4())
+    redis("SET", marker, "preserve")
     cursor = "0"
     keys = []
     while True:
@@ -285,6 +337,11 @@ def reset():
             break
     for index in range(0, len(keys), 100):
         redis("DEL", *keys[index:index + 100])
+    try:
+        assert redis("GET", marker) == "preserve", "Donnee hors namespace supprimee"
+    finally:
+        redis("DEL", marker)
+    print("OK : reset Redis preserve les donnees hors namespace", flush=True)
     print(f"Reset limite a {PREFIX}:* : {len(keys)} cles", flush=True)
 
 
@@ -317,6 +374,7 @@ def stock_hash(product_id):
 def recovered():
     idle()
     assert stock("coque-005") == 98
+    mongo_verify()
     assert stock("coque-005", True) == 98
     assert api("sav", "/replicas/orders/CMD-RECOVERY")["commandeId"] == "CMD-RECOVERY"
     raw = next(raw for raw in redis("LRANGE", key("events"), 0, -1)
@@ -327,10 +385,26 @@ def recovered():
     print("OK : reprise de processing et rejeu idempotent apres redemarrage", flush=True)
 
 
+def mongo_offline():
+    api("product", "/products/coque-005/variants", {"couleur": "noir", "prix": 14.49}, "PATCH")
+    idle(mongo=False)
+    assert stock_hash("coque-005") == 98
+    assert sum(redis("LLEN", key(k + ":product")) for k in ["mongo:queue", "mongo:processing"]) > 0
+    print("OK : ecriture Redis acceptee et projection conservee pendant la panne MongoDB", flush=True)
+
+
+def mongo_recovered():
+    mongo_verify()
+    assert api("product", "/documents/products/coque-005")["variantes"][0]["prix"] == 14.49
+    assert api("orders", "/documents/product_replicas/coque-005")["variantes"][0]["prix"] == 14.49
+    print("OK : reprise outbox apres panne MongoDB et redemarrage du service, sans perte", flush=True)
+
+
 if __name__ == "__main__":
     action = sys.argv[1] if len(sys.argv) > 1 else "demo"
     if action == "test":
         unittest.main(argv=[sys.argv[0]], verbosity=2)
     else:
         {"demo": demo, "reset": reset, "offline-publish": offline_publish,
-         "offline-verify": offline_verify, "stage-inflight": stage_inflight, "recovered": recovered}[action]()
+         "offline-verify": offline_verify, "stage-inflight": stage_inflight, "recovered": recovered,
+         "mongo-verify": mongo_verify, "mongo-offline": mongo_offline, "mongo-recovered": mongo_recovered}[action]()
